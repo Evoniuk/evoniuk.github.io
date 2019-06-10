@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', function() {
 })
 
 function change() {
-  if (localStorage.getItem('isLight') == 'true') {
+  if (localStorage.getItem('isLight') === 'true') {
     makeDark();
     localStorage.setItem('isLight', 'false')
   } else {

@@ -37,7 +37,7 @@ html, body {
 
 body {
   display: grid;
-  grid-template-columns: 60px 1fr 50% 1fr 60px;
+  grid-template-columns: 80px 1fr 50% 1fr 80px;
   text-align: justify;
   min-height: 100%;
 }
@@ -48,14 +48,13 @@ body > * {
 }
 
 p {
-  margin: 10px 0;
+  margin: 2px 0 14px 0;
 }
 
 h1 {
   font-size: 40px;
-  margin: 0;
+  margin: 10px 0;
   text-align: center;
-  margin-top: 10px;
 }
 
 h2 {
@@ -71,7 +70,17 @@ h2 {
 
 h3 {
   margin: 0;
+  padding: 0;
+  margin-top: 8px;
   color: var(--main);
+}
+
+h3 > a {
+  color: inherit;
+}
+
+h3 > a:hover {
+  color: inherit;
 }
 
 hr {
@@ -118,6 +127,15 @@ blockquote {
   text-align: center;
 }
 
+.subtitle {
+  color: var(--code);
+  font-style: italic;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
 img {
   width: 100%;
   border-radius: 10px;
@@ -130,6 +148,13 @@ aside {
   margin: 10px 0 0 10px;
   text-align: left;
   align-self: center;
+}
+
+ol {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 14px;
 }
 
 /* Style the list of posts */
