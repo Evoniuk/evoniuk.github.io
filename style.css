@@ -253,13 +253,16 @@ footer a {
 
 /* Responsivity */
 
-@media(max-width: 720px) {
+@media(max-width: 800px) {
   body {
-    grid-template-columns: 30px 1fr 80% 1fr 30px;
+    grid-template-columns: 1fr 0 80% 0 1fr;
   }
 
   aside {
-    display: none;
+    grid-column: 3;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-style: italic;
   }
 
   .home {
