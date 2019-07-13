@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jack Evoniuk">
+
+  <title>Time Complexity of Recurisve Fibonacci</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+  <script src="../main.js"></script>
+
+  <link rel="stylesheet" href="../highlight/styles/arduino-light.css">
+  <script src="../highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <a href="infinite_sum.html" class="navigate next"></a>
+  <a href="cello_suites.html" class="navigate prev"></a>
+
+  <a href="../index.html" class="home">| HOME |</a>
+
+  <h1>The Time Complexity of Recursive Fibonacci</h1>
+  <p>The algorithm (given in C) for the nth fibonacci number is this:</p>
+<pre><code>int fibonacci(int n) {
+  if (n == 1 || n == 2) return 1;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+</code></pre>
+  <p>It's simple enough, but the runtime complexity isn't entirely obvious. An initial assumption might be that it is O(2<sup>n</sup>), as it is a recursive formula that branches twice each call, but this isn't the best upper-bound.</p>
+
+  <p>The reason for this is that the branch of the recursive call calculating <code>fibonacci(n - 2)</code> will terminate faster than the one calculating <code>fibonacci(n - 1)</code>, this fact being compounded on each call, so there's one path that will get to a base case in n / 2 calls, and another getting there in n calls, with all sorts of other paths in between.</p>
+
+  <p>The key to getting the proper complexity of fibonacci, then, is to count how many times base cases are reached, as we know that if there are, say, n base cases reached, then there couldn't be more than 2n total functions calls*, and O(2n) = O(n).</p>
+  <aside>*If in doubt, try drawing out the tree and convincing yourself.</aside>
+
+  <p>Finding the number of base cases reached is actually quite easy; it's <code>fibonacci(n)</code>! <code>fibonacci(n)</code> is equal to the sum of all base cases, as each base case returns 1. Thus, if we find an explicit formula for the n<sup>th</sup> fibonacci number, we can find the complexity of <code>fibonacci</code>.</p>
+
+  <p>Fortunately, an explicit formula has already been derived, courtesy of the brilliant French-British mathematician Abraham de Moivre. He discovered, among many other things, that</p>
+  <img class="mathimage" src="images/binet.png" alt="Binet's Formula" style="height:50px">
+  <aside>Despite being originally discovered by De Moivre, this formula is called Binet's Formula, after French mathematician Jacques Binet.</aside>
+  <p>Where F<sub>n</sub> is the n<sup>th</sup> fibonacci number.</p>
+
+  <p>The first term in Binet's Formula is also known as the golden ratio, typically denoted with the greek letter ϕ.</p>
+
+  <p>Thus, the complexity of <code>fibonacci</code> is O(F<sub>n</sub>) = O(ϕ<sup>n</sup>). This is approximately O(1.618<sup>n</sup>). Still awful, but a little better than the initial assumption of O(2<sup>n</sup>).</p>
+
+  <footer><a href="../index.html">home</a><a id="toggle">toggle dark mode</a><a href="https://github.com/evoniuk" target="blank">github</a></footer>
+</body>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jack Evoniuk">
+
+  <title>.999... and How Mathematics Works</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+  <script src="../main.js"></script>
+
+  <link rel="stylesheet" href="../highlight/styles/arduino-light.css">
+  <script src="../highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <a href="../index.html" class="navigate next"></a>
+  <a href="fibruntime.html" class="navigate prev"></a>
+
+  <a href="../index.html" class="home">| HOME |</a>
+
+  <h1>.999... and How Mathematics Works</h1>
+
+  <p>The first thing that needs to be said is that mathematical objects aren't real. At least, they're not real like you and I. Mathematical truths and objects "exist" entirely due to definitions and the logic that ties them together. The reason why .999... is equal to one is entirely due to the way we <em>define</em> what it means for a decimal to "repeat".</p>
+
+  <p>Before we get into those definitions it might be good to briefly go into why we might want .999... to equal 1. We can think of it intuitively like this: if .999... did not equal 1, then we contradict an important property of real numbers. Part of what makes the real numbers what they are is that there always exists a number between any two distinct (non-equal) real numbers, their average, for example. If .999... did not equal 1, then what would go between them? What would be their average? We can't say that there's a number that has infinite 9's followed by a 5 at the end, as we've already said that the 9's go on forever, and have thus foreclosed the possibility that there is anything else.</p>
+
+  <p>This reason isn't terribly convincing however, as contradicitons might mean that our assumptions are wrong. Perhaps our number system is inconsistent. What that would mean is impossible to even fathom, but hey, you never know.</p>
+
+  <p>A better reason, and one that is much closer to the truth of why .999... = 1, is this:</p>
+
+  <p>1/2 + 1/4 + 1/8 + ... certainly goes to 1, right? Yet .9 + .09 + .009 + ... is always more than 1/2 + 1/4 + 1/8 + ..., and it obviously never exceeds one. So if it is always greater than something that tends to one, and is always less than one, it must be that it comes to equal one eventually. This is one reason why we might want to consider .999... equal to 1.</p>
+
+  <p>This is much closer to the actual reason why .999... = 1. Those who have taken a calculus class might recognize the above as being, essentially, an application of the <a href="https://en.wikipedia.org/wiki/Squeeze_theorem">Squeeze Theorem</a>. The Squeeze Theorem is applicable here because .999... is <em>defined</em> to be equal to the infinite sum .9 + .09 + .009 + ... and so is subject to the same kind of analysis.</p>
+
+  <p>So the question now becomes, how do we <em>define</em> what an infinite sum equals? We can't actually perform all the additions, as we would never be able to stop, and thus never get a result. Instead, we think of what it means for a sum to get infinitely close to a number.</p>
+
+  <p>Intuitively, the idea is that after performing a certain number of sums (called a <em>partial sum</em>) we would always stay within a certain distance. So after three sums, .9 + .09 + .009 = .999, or more we would always be within .001 of 1. What it would mean for an infinite sum to <em>equal</em> a number, then, is that the sum would, after a certain partial sum, stay within any gap that we might choose, no matter how small. Or alternatively, any gap will eventually be closed between a partial sum and the number the series supposedly equals. In our case, we know that no matter how small a number we choose, say .0000001, we can always find a partial sum that would be within that distance from 1.</p>
+
+  <p>Formualting this precisely in mathematical language yields the following (rather ugly) statement:</p>
+
+  <img src="images/infinitesum.svg" alt="Infinite Sum" class="mathimage" style="height: 25px">
+
+  <p>This is the <em>definition</em> of what it means for an infinite sum to equal a number, and the true reason why .999... equals 1. Let's parse it to see what it's saying exactly.</p>
+
+  <p>Reading it directly out in English, it would say</p>
+
+  <blockquote>
+    For all ε > 0, there exists a natural number N such that for all natural numbers n, when n ≥ N, |<em>x</em><sub>n</sub> - <em>x</em>| < ε.
+  </blockquote>
+
+  <p>Where <em>x</em><sub>n</sub> is the n<sup>th</sup> partial sum of the series, and <em>x</em> is the value the sum is supposed to equal. Here, ε is the gap between the partial sum and the value the total sum equals and N is the number of partial sums necessary to close the gap (and keep the gap closed) between all partial sums beyond N (which n denotes) and the value <em>x</em>.</p>
+
+  <p>If this condition is met then the sum indeed equals <em>x</em>, <em>by definition</em>.</p>
+
+  <p>And now we can see why .999... = 1: because we can prove that no matter how small a gap ε we choose we can always write a certain number of 9's such that |.999999... - 1| < ε.</p>
+
+  <p>The moral of this story is that the way math needs to be thought about, and the way many things need to be thought about, is with <em>definitions</em>. Everything from "is water wet?" to "is abortion murder?" can only be accurately answered if the terms that constitute them are defined. If two people in a debate don't share the same definitions they will talk past each other. And when math becomes debateable it has lost its purpose.</p>
+
+  <footer><a href="../index.html">home</a><a id="toggle">toggle dark mode</a><a href="https://github.com/evoniuk" target="blank">github</a></footer>
+</body>
