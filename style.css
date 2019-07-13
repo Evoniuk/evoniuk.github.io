@@ -144,6 +144,7 @@ img {
 .mathimage {
   width: auto;
   margin: auto;
+  padding: 2px;
 }
 
 aside {

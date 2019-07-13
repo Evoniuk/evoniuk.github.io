@@ -30,6 +30,10 @@ function makeDark() {
   document.documentElement.style.setProperty('--mcode', 'rgb(222, 184, 135)');
   document.documentElement.style.setProperty('--func', 'rgb(200, 100, 100)');
   document.documentElement.style.setProperty('--str', 'rgb(40, 158, 40)');
+
+  try {
+    document.querySelector('.mathimage').style.background = "var(--code)";
+  } catch (error) {}
 }
 
 function makeLight() {
@@ -44,4 +48,8 @@ function makeLight() {
   document.documentElement.style.setProperty('--mcode', 'rgb(0, 128, 128)');
   document.documentElement.style.setProperty('--func', 'rgb(178, 34, 34)');
   document.documentElement.style.setProperty('--str', 'rgb(0, 128, 0)');
+
+  try {
+    document.querySelector('.mathimage').style.background = "var(--back)";
+  } catch (error) {}
 }
