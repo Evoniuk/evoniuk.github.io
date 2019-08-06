@@ -1,12 +1,12 @@
 
 window.addEventListener('DOMContentLoaded', function() {
   try {
-    let toggle = document.getElementById('toggle');
+    const toggle = document.getElementById('toggle');
     toggle.addEventListener('click', change);
   } catch (error) {}
 
   if (!localStorage.getItem('isLight')) localStorage.setItem('isLight', 'true');
-  let light = localStorage.getItem('isLight');
+  const light = localStorage.getItem('isLight');
   if (light === 'true') makeLight();
   else makeDark();
 })
