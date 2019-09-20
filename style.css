@@ -283,6 +283,10 @@ footer a {
     font-style: italic;
   }
 
+  .mathimage {
+    margin-bottom: 10px;
+  }
+
   .home {
     grid-column: 3;
     text-align: center;
