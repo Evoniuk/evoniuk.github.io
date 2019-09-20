@@ -1,13 +1,11 @@
 
 window.addEventListener('DOMContentLoaded', function() {
-  try {
-    const toggle = document.getElementById('toggle');
-    toggle.addEventListener('click', change);
-  } catch (error) {}
+  const toggle = document.getElementById('toggle');
+  if (toggle) toggle.addEventListener('click', change);
 
   if (!localStorage.getItem('isLight')) localStorage.setItem('isLight', 'true');
-  const light = localStorage.getItem('isLight');
-  if (light === 'true') makeLight();
+
+  if (localStorage.getItem('isLight') === 'true') makeLight();
   else makeDark();
 })
 
@@ -31,9 +29,9 @@ function makeDark() {
   document.documentElement.style.setProperty('--func', 'rgb(200, 100, 100)');
   document.documentElement.style.setProperty('--str', 'rgb(40, 158, 40)');
 
-  try {
-    document.querySelector('.mathimage').style.background = "var(--code)";
-  } catch (error) {}
+  const mathImages = document.querySelectorAll('.mathimage');
+  for (let i = 0; i < mathImages.length; i++)
+    mathImages[i].style.background = "var(--code)";
 }
 
 function makeLight() {
@@ -49,7 +47,7 @@ function makeLight() {
   document.documentElement.style.setProperty('--func', 'rgb(178, 34, 34)');
   document.documentElement.style.setProperty('--str', 'rgb(0, 128, 0)');
 
-  try {
-    document.querySelector('.mathimage').style.background = "var(--back)";
-  } catch (error) {}
+  const mathImages = document.querySelectorAll('.mathimage');
+  for (let i = 0; i < mathImages.length; i++)
+    mathImages[i].style.background = "var(--back)";
 }
