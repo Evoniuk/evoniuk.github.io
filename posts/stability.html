@@ -162,7 +162,7 @@ function partition(arr, low, high) {
 
   <h2>What the Change Means</h2>
 
-  <p>I would argue this change is for the best. Without specifying an ordering on equivalent elements different browsers would produce different results. Perhaps a developer has a list of tickets for flights sorted by time, but then wants to sort them by name of ticketholder. A stable algorithm would keep groups of people with the same name in chronological order, but an unstable algorithm wouldn't. People using Firefox would be put on the right flight, but those on Chrome wouldn't. That's quite a problem.</p>
+  <p>I would argue this change is for the best. Without specifying an ordering on equivalent elements different browsers would produce different results. Perhaps a developer has a list of tickets for flights sorted by time, but then wants to sort them by name of ticketholder. A stable algorithm would keep groups of people with the same name in chronological order, but an unstable algorithm wouldn't. People using Firefox would be put on the right flight, but those on Chrome wouldn't (if, for the sake of my contrived example, such a thing were handled client-side). That's quite a problem.</p>
 
   <p>Of course that developer could implement his own algorithm, but that would require extra work, which no one wants. This
   change prioritizes the more general use-case, and this way people who demand the most performance can implement their
