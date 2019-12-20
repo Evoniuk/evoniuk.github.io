@@ -1,6 +1,7 @@
 :root {--accent: lightblue}
 
 body {
+  font-family: Arial, Helvetica, sans-serif;
   max-width: 40rem;
   margin: 10px auto;
   color: #222;
