@@ -37,7 +37,7 @@ aside, .subtitle {
 .feature, .mathimage {
   display: block;
   margin: 5px auto;
-  max-width: inherit;
+  max-width: 100%;
 }
 
 .subtitle {text-align: center}
