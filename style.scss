@@ -74,7 +74,10 @@ h1 {
   line-height: normal;
 }
 
-h2 {@include leftBorder(10px)}
+h2 {
+  @include leftBorder(10px);
+  line-height: normal;
+}
 
 h3 > a {color: inherit}
 
@@ -170,7 +173,7 @@ nav {
 }
 
 @media(max-width: 50rem) {
-  p, blockquote, pre, ol, header, footer {
+  p, blockquote, pre, ol, header, footer, aside, .subtitle {
     padding-left: 0;
   }
 
@@ -179,8 +182,6 @@ nav {
   ol {margin-left: $mainPadding}
 
   hr {margin-left: 0}
-
-  aside, .subtitle {padding-left: 0}
 
   h2 {@include leftBorder(6px)}
 }

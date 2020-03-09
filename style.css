@@ -58,6 +58,7 @@ h2 {
   border-left: 4px solid var(--accent);
   padding-left: 10px;
   margin-left: -14px;
+  line-height: normal;
 }
 
 h3 > a {
@@ -180,7 +181,7 @@ nav {
 }
 
 @media (max-width: 50rem) {
-  p, blockquote, pre, ol, header, footer {
+  p, blockquote, pre, ol, header, footer, aside, .subtitle {
     padding-left: 0;
   }
   blockquote {
@@ -191,9 +192,6 @@ nav {
   }
   hr {
     margin-left: 0;
-  }
-  aside, .subtitle {
-    padding-left: 0;
   }
   h2 {
     border-left: 4px solid var(--accent);
