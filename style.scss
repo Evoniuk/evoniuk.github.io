@@ -168,3 +168,19 @@ nav {
   font-style: italic;
   &:hover {cursor: pointer;}
 }
+
+@media(max-width: 50rem) {
+  p, blockquote, pre, ol, header, footer {
+    padding-left: 0;
+  }
+
+  blockquote {padding-left: $mainPadding}
+
+  ol {margin-left: $mainPadding}
+
+  hr {margin-left: 0}
+
+  aside, .subtitle {padding-left: 0}
+
+  h2 {@include leftBorder(6px)}
+}

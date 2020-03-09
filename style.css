@@ -45,7 +45,7 @@ a:hover {
 
 h1, h2, h3 {
   color: var(--bigText);
-  font-weight: lighter;
+  font-weight: normal;
 }
 
 h1 {
@@ -177,5 +177,28 @@ nav {
 
 #toggle:hover {
   cursor: pointer;
+}
+
+@media (max-width: 50rem) {
+  p, blockquote, pre, ol, header, footer {
+    padding-left: 0;
+  }
+  blockquote {
+    padding-left: 1.6rem;
+  }
+  ol {
+    margin-left: 1.6rem;
+  }
+  hr {
+    margin-left: 0;
+  }
+  aside, .subtitle {
+    padding-left: 0;
+  }
+  h2 {
+    border-left: 4px solid var(--accent);
+    padding-left: 6px;
+    margin-left: -10px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
