@@ -1,4 +1,31 @@
+// colors
+// $background: rgb(37, 43, 57);
+// $accent: powderblue;
+// $lightBackground: rgba(176, 224, 230, .4);
+// $selectionColor: pink;
+// $bigText: white;
+// $mainText: rgba(255, 255, 255, .9);
+// $date: pink;
+
+// sizes
+$borderSize: 4px;
+$maxWidth: 45rem;
+$fontSize: 15px;
+$mainPadding: 1.6rem;
+$codeSize: $fontSize - (2px);
+
+// fonts
+$mainFont: 'PT Sans', sans-serif;
+$monoFont: 'PT Mono', monospace;
+
+@mixin leftBorder($pixels) {
+  border-left: $borderSize solid var(--accent);
+  padding-left: $pixels;
+  margin-left: -($pixels + $borderSize);
+}
+
 :root {
+  // colors
   --background: rgb(37, 43, 57);
   --accent: powderblue;
   --lightBackground: rgba(176, 224, 230, .4);
@@ -10,13 +37,7 @@
 }
 
 * {
-  -webkit-transition: color, background .3s ease;
   transition: color, background .3s ease;
-}
-
-::-moz-selection {
-  background-color: var(--selectionColor);
-  color: white;
 }
 
 ::selection {
@@ -25,8 +46,8 @@
 }
 
 body {
-  font-family: "PT Sans", sans-serif;
-  max-width: 45rem;
+  font-family: $mainFont;
+  max-width: $maxWidth;
   margin: 10px auto;
   padding: 0 10px;
   color: var(--mainText);
@@ -37,10 +58,7 @@ body {
 a {
   color: var(--accent);
   text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+  &:hover {text-decoration: underline}
 }
 
 h1, h2, h3 {
@@ -54,15 +72,9 @@ h1 {
   line-height: normal;
 }
 
-h2 {
-  border-left: 4px solid var(--accent);
-  padding-left: 10px;
-  margin-left: -14px;
-}
+h2 {@include leftBorder(10px)}
 
-h3 > a {
-  color: inherit;
-}
+h3 > a {color: inherit}
 
 #date {
   color: var(--date);
@@ -72,62 +84,52 @@ h3 > a {
 
 p, blockquote, pre, ol, header, footer {
   text-align: justify;
-  font-size: 15px;
-  padding-left: 1.6rem;
+  font-size: $fontSize;
+  padding-left: $mainPadding;
 }
 
-blockquote {
-  padding-left: 2.4rem;
-}
+blockquote {padding-left: 1.5 * $mainPadding}
 
-ol {
-  margin-left: 2.4rem;
-}
+ol {margin-left: 1.5 * $mainPadding}
 
-li {
-  margin: 8px 20px 8px 0;
-}
+li {margin: 8px 20px 8px 0}
 
 hr {
-  border: 0.5px solid var(--accent);
-  margin-left: 1.6rem;
+  border: .5px solid var(--accent);
+  margin-left: $mainPadding;
 }
 
 aside, .subtitle {
   color: var(--aside);
   font-size: 8px;
-  padding-left: 1.6rem;
+  padding-left: $mainPadding;
 }
 
-aside {
-  margin-top: -1.4em;
-}
+aside {margin-top: -1.4em;}
 
 .feature, .mathimage {
   display: block;
   margin: 8px auto;
   max-width: 100%;
   background-color: var(--accent);
-  border-radius: 4px;
-  padding: 2px;
+  border-radius: $borderSize;
+  padding: ($borderSize) / 2;
 }
 
-.subtitle {
-  text-align: center;
-}
+.subtitle {text-align: center}
 
 pre, blockquote {
-  border-left: 6px solid var(--accent);
-  padding: 8px;
+  border-left: 1.5 * $borderSize solid var(--accent);
+  padding: 2 * $borderSize;
   background: var(--lightBackground);
   overflow: scroll;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-top-left-radius: $borderSize;
+  border-bottom-left-radius: $borderSize;
 }
 
 code {
-  font-family: "PT Mono", monospace;
-  font-size: 13px;
+  font-family: $monoFont;
+  font-size: $codeSize;
 }
 
 footer {
@@ -136,10 +138,8 @@ footer {
 }
 
 nav {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1.5fr 1fr 8fr;
-      grid-template-columns: 1.5fr 1fr 8fr;
+  grid-template-columns: 1.5fr 1fr 8fr;
   grid-row-gap: 4px;
 }
 
@@ -149,33 +149,20 @@ nav {
 }
 
 .month {
-  -ms-grid-column: 1;
   grid-column: 1;
   margin: 0 4px 0 0;
 }
 
-.day {
-  -ms-grid-column: 2;
-  grid-column: 2;
-}
+.day {grid-column: 2}
 
-.title {
-  -ms-grid-column: 3;
-  grid-column: 3;
-}
+.title {grid-column: 3}
 
-.day, .title {
-  margin: 0;
-}
+.day, .title {margin: 0}
 
 #toggle {
   text-align: center;
   margin-top: 40px;
   color: var(--accent);
   font-style: italic;
+  &:hover {cursor: pointer;}
 }
-
-#toggle:hover {
-  cursor: pointer;
-}
-/*# sourceMappingURL=style.css.map */
