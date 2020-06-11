@@ -6,7 +6,7 @@
   --bigText: white;
   --mainText: rgba(255, 255, 255, .9);
   --date: pink;
-  --aside: lightgrey;
+  --aside: rgb(161, 161, 161);
 }
 
 * {
@@ -26,7 +26,7 @@
 
 body {
   font-family: "PT Sans", sans-serif;
-  max-width: 45rem;
+  max-width: 50rem;
   margin: 10px auto;
   padding: 0 10px;
   color: var(--mainText);
@@ -46,12 +46,13 @@ a:hover {
 h1, h2, h3 {
   color: var(--bigText);
   font-weight: normal;
+  font-style: italic;
 }
 
 h1 {
   font-size: 40px;
-  border-bottom: 1px solid var(--accent);
   line-height: normal;
+  text-align: center;
 }
 
 h2 {
@@ -74,14 +75,14 @@ h3 > a {
 p, blockquote, pre, ol, header, footer {
   text-align: justify;
   font-size: 15px;
-  padding-left: 1.6rem;
+  padding: 0 1.6rem;
 }
 
 blockquote {
   padding-left: 2.4rem;
 }
 
-ol {
+ul, ol {
   margin-left: 2.4rem;
 }
 
@@ -91,12 +92,12 @@ li {
 
 hr {
   border: 0.5px solid var(--accent);
-  margin-left: 1.6rem;
+  margin: 0 1.6rem;
 }
 
 aside, .subtitle {
   color: var(--aside);
-  font-size: 8px;
+  font-size: 10px;
   padding-left: 1.6rem;
 }
 
@@ -108,7 +109,7 @@ aside {
   display: block;
   margin: 8px auto;
   max-width: 100%;
-  background-color: var(--accent);
+  background-color: white;
   border-radius: 4px;
   padding: 2px;
 }
@@ -122,8 +123,7 @@ pre, blockquote {
   padding: 8px;
   background: var(--lightBackground);
   overflow: scroll;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  line-height: 1.2rem;
 }
 
 code {
@@ -182,7 +182,8 @@ nav {
 
 @media (max-width: 50rem) {
   p, blockquote, pre, ol, header, footer, aside, .subtitle {
-    padding-left: 0;
+    padding: initial 0;
+    text-align: left;
   }
   blockquote {
     padding-left: 1.6rem;

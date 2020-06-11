@@ -18,7 +18,7 @@
   </header>
   <h1>Stability in Sorting Algorithms</h1>
 
-  <p>In <a target="_blank" href="https://tc39.github.io/ecma262/#sec-array.prototype.sort">the 10th edition of the ECMA specification</a> of JavaScript it was required that the <code>Array.sort</code> method be stable. Here I want to have a deeper discussion as to what sorting and stability mean from a formal, mathematical perspective, in addition to discussing the ramifications of the change.</p>
+  <p><a target="_blank" href="https://tc39.github.io/ecma262/#sec-array.prototype.sort">The 10th edition of the ECMA specification</a> of JavaScript required that the <code>Array.sort</code> method be stable. Here I want to have a deeper discussion as to what sorting and stability mean from a formal, mathematical perspective, in addition to discussing the ramifications of the change.</p>
 
   <h2>What Defines Sorting</h2>
 
@@ -30,7 +30,7 @@
 
   <p>An ordering is a type of mathematical relation defined on some set that satisfies three conditions:</p>
 
-  <ol>
+  <ul>
     <li><em>reflexivity</em>:
       every element must be related to itself. If we consider the ordering '<=' on the set of real numbers, we see that every number is related to itself (as every number equals itself). It's important to note here that '<' is <strong>not</strong> an ordering. An ordering must have a condition for equality.
     </li>
@@ -40,7 +40,7 @@
     <li><em>antisymmetry</em>:
       if <em>x</em> <= <em>y</em> and <em>y</em> <= <em>x</em>, then <em>x</em> = <em>y</em>.
     </li>
-  </ol>
+  </ul>
 
   <p>These are the things that define an ordering. However, above, I noted that an ordering must have a condition for equality, which might cause you to ask what equality is. Or maybe it doesn't. Regardless, let's see.</p>
   <aside>In our case of sorting we also need to specify that all elements must be comparable.</aside>
@@ -50,12 +50,12 @@
   <p>Equality, or equivalence, is also a type of mathematical relation defined on a set. It, like an ordering, is both reflexive (<em>x</em> = <em>x</em>) and transitive (if <em>x</em> = <em>y</em> and <em>y</em> = <em>z</em>, then <em>x</em> = <em>z</em>). However, unlike an ordering, an equivalence relation is <em>symmetric</em>, not antisymmetric.</p>
   <aside>This isn't exactly accurate: symmetry in a relation actually implies antisymmetry. It's odd nomenclature.</aside>
 
-  <p>A relation '=' is <em>symmetric</em> if, for all <em>x</em> and <em>y</em> in the set on which the relation is defined, if <em>x</em> = <em>y</em> then <em>y</em> = <em>x</em>.</p>
+  <p>A relation '=' is <em>symmetric</em> if, for all <em>x</em> and <em>y</em> in the set on which the relation is defined, <em>x</em> = <em>y</em> implies that <em>y</em> = <em>x</em>.</p>
 
   <p>These are all very familiar aspects of equality. It's often the case that things being familiar cause us to scoff at definitions of them, but it is important in math, as well any technical discipline (like computer science), to be as explicit as possible in our definitions, all the way to the most basic things*. This avoids miscommunication and allows us to rigorously define more complex concepts.</p>
   <aside>* If you thought this definition was too much try Frege's writing on what a number is.</aside>
 
-  <p>And speaking of defining more complex concepts, that's exactly what we are going to do. This whole discussion, recall, is aboue stability in sorting, a concept that arises from elements being equal. We will find the following definition of an <em>equivalence class</em> useful in this discussion.</p>
+  <p>And speaking of defining more complex concepts, that's exactly what we are going to do. This whole discussion, recall, is about stability in sorting, a concept that arises from elements being equal. We will find the following definition of an <em>equivalence class</em> useful in this discussion.</p>
 
   <h3>Equivalence classes</h3>
 

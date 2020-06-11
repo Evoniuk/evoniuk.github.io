@@ -1,15 +1,6 @@
-// colors
-// $background: rgb(37, 43, 57);
-// $accent: powderblue;
-// $lightBackground: rgba(176, 224, 230, .4);
-// $selectionColor: pink;
-// $bigText: white;
-// $mainText: rgba(255, 255, 255, .9);
-// $date: pink;
-
 // sizes
 $borderSize: 4px;
-$maxWidth: 45rem;
+$maxWidth: 50rem;
 $fontSize: 15px;
 $mainPadding: 1.6rem;
 $codeSize: $fontSize - (2px);
@@ -25,7 +16,6 @@ $monoFont: 'PT Mono', monospace;
 }
 
 :root {
-  // colors
   --background: rgb(37, 43, 57);
   --accent: powderblue;
   --lightBackground: rgba(176, 224, 230, .4);
@@ -33,7 +23,7 @@ $monoFont: 'PT Mono', monospace;
   --bigText: white;
   --mainText: rgba(255, 255, 255, .9);
   --date: pink;
-  --aside: lightgrey;
+  --aside: rgb(161, 161, 161);
 }
 
 * {
@@ -64,12 +54,13 @@ a {
 h1, h2, h3 {
   color: var(--bigText);
   font-weight: normal;
+  font-style: italic;
 }
 
 h1 {
   font-size: 40px;
-  border-bottom: 1px solid var(--accent);
   line-height: normal;
+  text-align: center;
 }
 
 h2 {
@@ -88,23 +79,25 @@ h3 > a {color: inherit}
 p, blockquote, pre, ol, header, footer {
   text-align: justify;
   font-size: $fontSize;
-  padding-left: $mainPadding;
+  padding: 0 $mainPadding;
 }
 
 blockquote {padding-left: 1.5 * $mainPadding}
 
-ol {margin-left: 1.5 * $mainPadding}
+ul, ol {margin-left: 1.5 * $mainPadding}
 
 li {margin: 8px 20px 8px 0}
 
 hr {
   border: .5px solid var(--accent);
-  margin-left: $mainPadding;
+  margin: 0 $mainPadding;
+  // margin-left: $mainPadding;
+  // margin-right: $mainPadding;
 }
 
 aside, .subtitle {
   color: var(--aside);
-  font-size: 8px;
+  font-size: 10px;
   padding-left: $mainPadding;
 }
 
@@ -114,7 +107,7 @@ aside {margin-top: -1.4em;}
   display: block;
   margin: 8px auto;
   max-width: 100%;
-  background-color: var(--accent);
+  background-color: white;
   border-radius: $borderSize;
   padding: ($borderSize) / 2;
 }
@@ -126,8 +119,7 @@ pre, blockquote {
   padding: 2 * $borderSize;
   background: var(--lightBackground);
   overflow: scroll;
-  border-top-left-radius: $borderSize;
-  border-bottom-left-radius: $borderSize;
+  line-height: 1.2rem;
 }
 
 code {
@@ -172,7 +164,8 @@ nav {
 
 @media(max-width: 50rem) {
   p, blockquote, pre, ol, header, footer, aside, .subtitle {
-    padding-left: 0;
+    padding: initial 0;
+    text-align: left;
   }
 
   blockquote {padding-left: $mainPadding}
