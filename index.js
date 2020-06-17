@@ -31,7 +31,8 @@ function changeModeSign(element) {
 function makeDark() {
   document.documentElement.style.setProperty('--background', 'rgb(37, 43, 57)');
   document.documentElement.style.setProperty('--accent', 'powderblue');
-  document.documentElement.style.setProperty('--lightBackground', 'rgba(176, 224, 230, .4)');
+  document.documentElement.style.setProperty('--lightBackground', 'rgb(93, 116, 126)');
+  document.documentElement.style.setProperty('--textLightBackground', 'white');
   document.documentElement.style.setProperty('--selectionColor', 'pink');
   document.documentElement.style.setProperty('--bigText', 'white');
   document.documentElement.style.setProperty('--mainText', 'rgba(255, 255, 255, .9)');
@@ -42,7 +43,8 @@ function makeDark() {
 function makeLight() {
   document.documentElement.style.setProperty('--background', 'white');
   document.documentElement.style.setProperty('--accent', '#176f9a');
-  document.documentElement.style.setProperty('--lightBackground', 'rgba(23, 111, 154, .1)');
+  document.documentElement.style.setProperty('--lightBackground', 'rgb(232, 240, 245)');
+  document.documentElement.style.setProperty('--textLightBackground', 'rgb(12, 72, 80)');
   document.documentElement.style.setProperty('--selectionColor', 'rgba(240, 128, 128, .8)');
   document.documentElement.style.setProperty('--bigText', 'black');
   document.documentElement.style.setProperty('--mainText', '#333');

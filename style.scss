@@ -18,7 +18,8 @@ $monoFont: 'PT Mono', monospace;
 :root {
   --background: rgb(37, 43, 57);
   --accent: powderblue;
-  --lightBackground: rgba(176, 224, 230, .4);
+  --lightBackground: rgb(93, 116, 126);
+  --textLightBackground: white;
   --selectionColor: pink;
   --bigText: white;
   --mainText: rgba(255, 255, 255, .9);
@@ -91,8 +92,6 @@ li {margin: 8px 20px 8px 0}
 hr {
   border: .5px solid var(--accent);
   margin: 0 $mainPadding;
-  // margin-left: $mainPadding;
-  // margin-right: $mainPadding;
 }
 
 aside, .subtitle {
@@ -115,9 +114,10 @@ aside {margin-top: -1.4em;}
 .subtitle {text-align: center}
 
 pre, blockquote {
-  border-left: 1.5 * $borderSize solid var(--accent);
+  border-left: $borderSize solid var(--accent);
   padding: 2 * $borderSize;
   background: var(--lightBackground);
+  color: var(--textLightBackground);
   overflow: scroll;
   line-height: 1.2rem;
 }
@@ -125,6 +125,8 @@ pre, blockquote {
 code {
   font-family: $monoFont;
   font-size: $codeSize;
+  background: var(--lightBackground);
+  color: var(--textLightBackground);
 }
 
 footer {

@@ -1,7 +1,8 @@
 :root {
   --background: rgb(37, 43, 57);
   --accent: powderblue;
-  --lightBackground: rgba(176, 224, 230, .4);
+  --lightBackground: rgb(93, 116, 126);
+  --textLightBackground: white;
   --selectionColor: pink;
   --bigText: white;
   --mainText: rgba(255, 255, 255, .9);
@@ -119,9 +120,10 @@ aside {
 }
 
 pre, blockquote {
-  border-left: 6px solid var(--accent);
+  border-left: 4px solid var(--accent);
   padding: 8px;
   background: var(--lightBackground);
+  color: var(--textLightBackground);
   overflow: scroll;
   line-height: 1.2rem;
 }
@@ -129,6 +131,8 @@ pre, blockquote {
 code {
   font-family: "PT Mono", monospace;
   font-size: 13px;
+  background: var(--lightBackground);
+  color: var(--textLightBackground);
 }
 
 footer {
