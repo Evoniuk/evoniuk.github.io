@@ -1,180 +1,36 @@
-// sizes
-$borderSize: 4px;
-$maxWidth: 50rem;
-$fontSize: 15px;
-$mainPadding: 1.6rem;
-$codeSize: $fontSize - (2px);
-
-// fonts
-$mainFont: 'PT Sans', sans-serif;
-$monoFont: 'PT Mono', monospace;
-
-@mixin leftBorder($pixels) {
-  border-left: $borderSize solid var(--accent);
-  padding-left: $pixels;
-  margin-left: -($pixels + $borderSize);
-}
-
-:root {
-  --background: rgb(37, 43, 57);
-  --accent: powderblue;
-  --lightBackground: rgb(93, 116, 126);
-  --textLightBackground: white;
-  --selectionColor: pink;
-  --bigText: white;
-  --mainText: rgba(255, 255, 255, .9);
-  --date: pink;
-  --aside: rgb(161, 161, 161);
-}
-
-* {
-  transition: color, background .3s ease;
-}
-
-::selection {
-  background-color: var(--selectionColor);
-  color: white;
-}
+$accent: rgb(90, 168, 200);
 
 body {
-  font-family: $mainFont;
-  max-width: $maxWidth;
-  margin: 10px auto;
-  padding: 0 10px;
-  color: var(--mainText);
-  background-color: var(--background);
-  line-height: 1.4em;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  line-height: 1.6em;
 }
 
 a {
-  color: var(--accent);
   text-decoration: none;
-  &:hover {text-decoration: underline}
-}
-
-h1, h2, h3 {
-  color: var(--bigText);
-  font-weight: normal;
-  font-style: italic;
-}
-
-h1 {
-  font-size: 40px;
-  line-height: normal;
-  text-align: center;
-}
-
-h2 {
-  @include leftBorder(10px);
-  line-height: normal;
-}
-
-h3 > a {color: inherit}
-
-#date {
-  color: var(--date);
-  font-weight: bold;
-  float: right;
-}
-
-p, blockquote, pre, ol, header, footer {
-  text-align: justify;
-  font-size: $fontSize;
-  padding: 0 $mainPadding;
-}
-
-blockquote {padding-left: 1.5 * $mainPadding}
-
-ul, ol {margin-left: 1.5 * $mainPadding}
-
-li {margin: 8px 20px 8px 0}
-
-hr {
-  border: .5px solid var(--accent);
-  margin: 0 $mainPadding;
-}
-
-aside, .subtitle {
-  color: var(--aside);
-  font-size: 10px;
-  padding-left: $mainPadding;
-}
-
-aside {margin-top: -1.4em;}
-
-.feature, .mathimage {
-  display: block;
-  margin: 8px auto;
-  max-width: 100%;
-  background-color: white;
-  border-radius: $borderSize;
-  padding: ($borderSize) / 2;
-}
-
-.subtitle {text-align: center}
-
-pre, blockquote {
-  border-left: $borderSize solid var(--accent);
-  padding: 2 * $borderSize;
-  background: var(--lightBackground);
-  color: var(--textLightBackground);
-  overflow: scroll;
-  line-height: 1.2rem;
-}
-
-code {
-  font-family: $monoFont;
-  font-size: $codeSize;
-  background: var(--lightBackground);
-  color: var(--textLightBackground);
-}
-
-footer {
-  margin-top: 20px;
-  text-align: right;
+  color: $accent;
+  &:hover {
+    color: black;
+    border-bottom: 2px solid $accent;
+  }
 }
 
 nav {
+  max-width: 50rem;
+  margin: auto;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 8fr;
+  grid-template-columns: 10rem 30rem 10rem;
   grid-row-gap: 4px;
 }
 
-.year {
-  grid-column: 1 / -1;
-  text-align: center;
-}
-
-.month {
+.day {
   grid-column: 1;
-  margin: 0 4px 0 0;
+  color: #555;
 }
 
-.day {grid-column: 2}
-
-.title {grid-column: 3}
+.title {grid-column: 2}
 
 .day, .title {margin: 0}
 
-#toggle {
-  text-align: center;
-  margin-top: 40px;
-  color: var(--accent);
-  font-style: italic;
-  &:hover {cursor: pointer;}
-}
-
-@media(max-width: 50rem) {
-  p, blockquote, pre, ol, header, footer, aside, .subtitle {
-    padding: initial 0;
-    text-align: left;
-  }
-
-  blockquote {padding-left: $mainPadding}
-
-  ol {margin-left: $mainPadding}
-
-  hr {margin-left: 0}
-
-  h2 {@include leftBorder(6px)}
-}
+.subject {grid-column: 3}

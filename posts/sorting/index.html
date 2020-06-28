@@ -8,14 +8,9 @@
 
   <title>Stability in Sorting Algorithms</title>
 
-  <link rel="stylesheet" href="../style.css">
-  <script src="../index.js"></script>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <header>
-    <a href="serfdom.html">< previous post</a> | <a href="../index.html">home</a>  | <span id="toggle">toggle light mode</span>
-    <span id="date">May 26, 2019</span>
-  </header>
   <h1>Stability in Sorting Algorithms</h1>
 
   <p><a target="_blank" href="https://tc39.github.io/ecma262/#sec-array.prototype.sort">The 10th edition of the ECMA specification</a> of JavaScript required that the <code>Array.sort</code> method be stable. Here I want to have a deeper discussion as to what sorting and stability mean from a formal, mathematical perspective, in addition to discussing the ramifications of the change.</p>
@@ -32,13 +27,13 @@
 
   <ul>
     <li><em>reflexivity</em>:
-      every element must be related to itself. If we consider the ordering '<=' on the set of real numbers, we see that every number is related to itself (as every number equals itself). It's important to note here that '<' is <strong>not</strong> an ordering. An ordering must have a condition for equality.
+      every element must be related to itself. If we consider the ordering '≤' on the set of real numbers, we see that every number is related to itself (as every number equals itself). It's important to note here that '<' is <strong>not</strong> an ordering. An ordering must have a condition for equality.
     </li>
     <li><em>transitivity</em>:
-      returning to the above example of '<=', if <em>x</em> <= <em>y</em> and <em>y</em> <= <em>z</em>, then <em>x</em> <= <em>z</em>. This is perhaps the most obvious feature of an ordering.
+      returning to the above example of '≤', if <em>x</em> ≤ <em>y</em> and <em>y</em> ≤ <em>z</em>, then <em>x</em> ≤ <em>z</em>. This is perhaps the most obvious feature of an ordering.
     </li>
     <li><em>antisymmetry</em>:
-      if <em>x</em> <= <em>y</em> and <em>y</em> <= <em>x</em>, then <em>x</em> = <em>y</em>.
+      if <em>x</em> ≤ <em>y</em> and <em>y</em> ≤ <em>x</em>, then <em>x</em> = <em>y</em>.
     </li>
   </ul>
 
@@ -74,7 +69,7 @@
 
   <p>In a stable sort we impose an ordering on elements that are equal: the ordering present in the original array. This way we have an ordering for every element, and no desire to assign different elements to the same index. This is not the case in unstable sortings.</p>
 
-  <p>In unstable sortings, there is no rule present for assigning two elements that are equal. In the absense of such a rule, there are multiple possibilities for the final ordering. This violates the reflexive property of an ordering, as for some implementation an element might be sorted to index 5, let's say, but with a different implementation it might be sent to 4, yet 5 <= 4 is not so. Unstable sorting is thus not a sorting of the elements of the array, but rather a sorting of the equivalence classes present in the array.</p>
+  <p>In unstable sortings, there is no rule present for assigning two elements that are equal. In the absense of such a rule, there are multiple possibilities for the final ordering. This violates the reflexive property of an ordering, as for some implementation an element might be sorted to index 5, let's say, but with a different implementation it might be sent to 4, yet 5 ≤ 4 is not so. Unstable sorting is thus not a sorting of the elements of the array, but rather a sorting of the equivalence classes present in the array.</p>
 
   <p>Note that I'm talking on an abstract level. Any given implementation of an unstable sorting algorithm is absolutely a sorting on the elements of the array*. It's just that you can define the ordering of stable sorts prior to any implementation, whereas it is the particular implementation of unstable sorting that determines how elements are sorted.</p>
   <aside>* Any deterministic implementation, to be precise.</aside>
@@ -89,61 +84,61 @@
 
   <p>Here is an implementation of mergesort in JavaScript.</p>
 
-<pre><code>function mergesort(arr) {
-  function sort(arr, helper, low, high) {
-    if (low < high) {
-      let middle = low + ((high - low) >> 1);
-      sort(arr, helper, low, middle);
-      sort(arr, helper, middle + 1, high);
-      merge(arr, helper, low, middle, high)
+<pre><code><span class="keyword">function</span> <span class="function">mergesort</span>(arr) {
+  <span class="keyword">function</span> <span class="function">sort</span>(arr, helper, low, high) {
+    <span class="keyword">if</span> (low < high) {
+      <span class="keyword">let</span> middle = low + ((high - low) >> 1);
+      <span class="function">sort</span>(arr, helper, low, middle);
+      <span class="function">sort</span>(arr, helper, middle + 1, high);
+      <span class="function">merge</span>(arr, helper, low, middle, high)
     }
   }
-  sort(arr, [], 0, arr.length - 1)
+  <span class="function">sort</span>(arr, [], 0, arr.length - 1)
 }
 
-function merge(arr, helper, low, middle, high) {
-  for (let i = low; i <= high; i++) helper[i] = arr[i];
-  let helpL = low, helpR = middle + 1;
-  let current = low;
-  while (helpL <= middle && helpR <= high) {
-    //   Removing this ↓ = sign would cause instability despite still sorting
-    if (helper[helpL] <= helper[helpR]) arr[current++] = helper[helpL++];
-    else arr[current++] = helper[helpR++];
+<span class="keyword">function</span> <span class="function">merge</span>(arr, helper, low, middle, high) {
+  <span class="keyword">for</span> (let i = low; i <= high; i++) helper[i] = arr[i];
+  <span class="keyword">let</span> helpL = low, helpR = middle + 1;
+  <span class="keyword">let</span> current = low;
+  <span class="keyword">while</span> (helpL <= middle && helpR <= high) {
+    <span class="comment">//   Removing this ↓ '=' sign would cause instability despite still sorting</span>
+    <span class="keyword">if</span> (helper[helpL] <= helper[helpR]) arr[current++] = helper[helpL++];
+    <span class="keyword">else</span> arr[current++] = helper[helpR++];
   }
-  let remaining = middle - helpL;
-  for (let i = 0; i <= remaining; i++) arr[current + i] = helper[helpL + i]
+  <span class="keyword">let</span> remaining = middle - helpL;
+  <span class="keyword">for</span> (let i = 0; i <= remaining; i++) arr[current + i] = helper[helpL + i]
 }
 </code></pre>
 
-  <p>The line below the comment, as the comment indicates, requires the comparison to be '<=' in order to be stable. Switching to a simple '<' would still give a valid sorting algorithm, but it would no longer be stable. As an exercise you might try to convince yourself that this is true.</p>
+  <p>The line below the comment, as the comment indicates, requires the comparison to be '≤' in order to be stable. Switching to a simple '<' would still give a valid sorting algorithm, but it would no longer be stable. As an exercise you might try to convince yourself that this is true.</p>
 
   <h3>Quicksort</h3>
 
   <p>Here is an implementation of quicksort in JavaScript.</p>
 
-<pre><code>function quicksort(arr) {
-  function sort(arr, low, high) {
-    let index = partition(arr, low, high);
-    if (low < index - 1) sort(arr, low, index - 1);
-    if (index < high) sort(arr, index, high);
+<pre><code><span class="keyword">function</span> <span class="function">quicksort</span>(arr) {
+  <span class="keyword">function</span> <span class="function">sort</span>(arr, low, high) {
+    <span class="keyword">let</span> index = <span class="function">partition</span>(arr, low, high);
+    <span class="keyword">if</span> (low < index - 1) <span class="function">sort</span>(arr, low, index - 1);
+    <span class="keyword">if</span> (index < high) <span class="function">sort</span>(arr, index, high);
   }
-  sort(arr, 0, arr.length - 1)
+  <span class="function">sort</span>(arr, 0, arr.length - 1)
 }
 
-function partition(arr, low, high) {
-  let pivot = arr[low + ((high - low) >> 1)];
-  while (low <= high) {
-    while (arr[low] < pivot) low++;
-    while (pivot< arr[high]) high--;
-    if (low <= high) swap(arr, low++, high--); // swap swaps the elements at
-  }                                            // indexes low and high in arr
-  return low
+<span class="keyword">function</span> <span class="function">partition</span>(arr, low, high) {
+  <span class="keyword">let</span> pivot = arr[low + ((high - low) >> 1)];
+  <span class="keyword">while</span> (low <= high) {
+    <span class="keyword">while</span> (arr[low] < pivot) low++;
+    <span class="keyword">while</span> (pivot< arr[high]) high--;
+    <span class="keyword">if</span> (low <= high) <span class="function">swap</span>(arr, low++, high--); <span class="comment">// swap swaps the elements at</span>
+  }                                            <span class="comment">// indexes low and high in arr</span>
+  <span class="keyword">return</span> low
 }
 </code></pre>
 
   <p>This algorithm is unstable. To see why, we will consider a simple example.</p>
 
-  <p>If we change <code>arr[low] < pivot</code> to <code>arr[low] % 7 < pivot % 7</code>, doing like for the comparison on the line below it, and feed in an array like <code>[1,7,8]</code>. This would be sorted as <code>[7,8,1]</code>, in which the <code>8</code> precedes the <code>1</code>, despite the opposite being true in the original array.</p>
+  <p>If we change <code>arr[low] < pivot</code> to <code>arr[low] % 7 < pivot % 7</code>, doing like for the comparison on the line below it, and feed in an array like <code>[1,7,8]</code>, the result would be <code>[7,8,1]</code>, in which the <code>8</code> precedes the <code>1</code>, despite the opposite being true in the original array.</p>
 
   <p>If we made the same change to mergesort and tested the same array, we would get <code>[7,1,8]</code>, with the <code>1</code> and <code>8</code> in their original order.</p>
 
@@ -161,7 +156,7 @@ function partition(arr, low, high) {
 
   <h2>What the Change Means</h2>
 
-  <p>I would argue this change is for the best. Without specifying an ordering on equivalent elements different browsers would produce different results. Perhaps a developer has a list of tickets for flights sorted by time, but then wants to sort them by name of ticketholder. A stable algorithm would keep groups of people with the same name in chronological order, but an unstable algorithm wouldn't. People using Firefox would be put on the right flight, but those on Chrome wouldn't (if, for the sake of my contrived example, such a thing were handled client-side). That's quite a problem.</p>
+  <p>I would argue this change is for the best. Without specifying an ordering on equivalent elements different browsers would produce different results. If an airline had an online spreadsheet of tickets for flights sorted by time, but then wants to sort them by name of ticketholder, a stable algorithm would keep groups of people with the same name in chronological order, while an unstable algorithm wouldn't. If such a thing were implemented using the <code>Array.sort</code> method, using Firefox would produce a different ordering than in Chrome. That might turn out to be quite a problem.</p>
 
   <p>Of course that developer could implement his own algorithm, but that would require extra work, which no one wants. This
   change prioritizes the more general use-case, and this way people who demand the most performance can implement their
@@ -172,9 +167,5 @@ function partition(arr, low, high) {
   <p>Ultimately what should be taken away from this discussion is that unstable sorts, on an abstract level, are only sorts on the equivalence classes in the array, and as such a distinction between them is relevant whenever the size (cardinality) of equivalence classes is greater than one. It should also always be remembered than any two elements that are mutable are distinct.</p>
 
   <p>This gives sufficient criteria for determining the type of sort desired in any given circumstance. Again, I would say that the change in the specification is a good one because the result of a stable sorting algorithm will always be the same with the same input. Unstable sorts certainly have their place, but part of determining their place is to know when not to use them. I hope this discussion has been helpful in determining when exactly that is.</p>
-
-  <footer>
-    <a href="cello_suites.html">next post ></a>
-  </footer>
 </body>
 </html>

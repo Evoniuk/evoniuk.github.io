@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+body {
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6rem;
+  display: grid;
+  grid-template-columns: .5fr 45rem 1fr;
+  font-size: 16px;
+}
+
+* {grid-column: 2}
+
+p {
+  margin-block-start: .5rem;
+  margin-block-end: .5rem;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(90, 168, 200);
+}
+
+a:hover {
+  color: black;
+  border-bottom: 2px solid rgb(90, 168, 200);
+}
+
+code {
+  background-color: rgb(243, 229, 231);
+  padding: 2px;
+  border-radius: 3px;
+  font-family: 'Source Code Pro';
+  font-size: 13px;
+}
+
+pre {
+  line-height: 1.3rem;
+  overflow: scroll;
+  padding-left: 1rem;
+  border-left: 6px solid rgb(243, 229, 231);
+}
+
+pre > code {
+  background-color: white;
+  color: black;
+}
+
+hr {
+  width: 100%;
+  border: 1px solid black;
+}
+
+aside {
+  font-size: smaller;
+  max-width: 12rem;
+  grid-column: 3;
+  color: grey;
+  margin: auto;
+  padding: 4px;
+  line-height: 1.3rem;
+}
+
+.function, code {color: rgb(167, 35, 57)}
+.keyword {color: rgb(90, 168, 200)}
+
+.comment {color: grey}
+
+@media(max-width: 72rem) {
+  body {grid-template-columns: 1fr 6fr 1fr}
+
+  aside {
+    grid-column: 2;
+    max-width: 100%;
+    text-align: left;
+    padding: 4px 0;
+    margin: 0;
+  }
+
+  @media(max-width: 60rem) {
+    body {
+      grid-template-columns: 0 1fr 0;
+      padding: 5px;
+    }
+  }
+}
+
