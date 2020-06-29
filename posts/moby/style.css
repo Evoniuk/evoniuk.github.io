@@ -5,15 +5,10 @@ body {
   margin: auto;
   font-family: 'Noto Serif TC';
   text-align: justify;
-  background-color: rgb(250, 244, 237);
-  color: rgb(36, 21, 2);
   padding: 5px;
 }
 
-blockquote, aside {
-  font-size: smaller;
-  color: rgb(83, 51, 9);
-}
+blockquote, aside {font-size: smaller}
 
 hr {border: .5px solid black}
 
