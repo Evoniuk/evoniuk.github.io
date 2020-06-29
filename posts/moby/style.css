@@ -6,6 +6,7 @@ body {
   font-family: 'Noto Serif TC';
   text-align: justify;
   padding: 5px;
+  font-size: 14px;
 }
 
 blockquote, aside {font-size: smaller}
