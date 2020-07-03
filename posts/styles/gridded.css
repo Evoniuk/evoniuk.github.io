@@ -39,6 +39,8 @@ header {
   justify-content: space-between;
 }
 
+#gap {min-width: 15px}
+
 article {
   margin: auto;
   display: grid;

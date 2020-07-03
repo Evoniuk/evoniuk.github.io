@@ -45,6 +45,8 @@ header {
   margin-bottom: 5px;
 }
 
+#gap {min-width: 15px}
+
 p {
   line-height: 1.4rem;
   text-align: justify;
