@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
 @font-face {
   font-family: 'Computer Modern';
-  src: url("./LatinModernMath-Regular.woff") format("woff");
+  src: url("./fonts/LatinModernMath-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
