@@ -12,36 +12,100 @@
 </head>
 
 <body>
-  <nav>
-    <p class="day">June 25, 2020</p>
-    <p class="title"><a href="https://evoniuk.github.io/Godels-Incompleteness-Theorems/" target="blank">Gödel's Incompleteness Theorems</a></p>
 
-    <p class="day">June 10, 2020</p>
-    <p class="title"><a href="https://evoniuk.github.io/Color-Representation-and-Gradients/" target="blank">Color Representation and Gradients</a></p>
+  <h1>Just Some Thoughts</h1>
 
-    <p class="day">March 8, 2020</p>
-    <p class="title"><a target="blank" href="posts/gif/index.html">The Pronunciation of Gif</a></p>
+  <p>On occasion I write about things on my mind. Below is some of that writing.</p>
 
-    <p class="day">August 11, 2019</p>
-    <p class="title"><a target="blank" href="posts/heather/index.html">Heather</a></p>
+  <div class="post">
+    <span class="day">June 25, 2020</span>
+    <span class="title"><a href="https://evoniuk.github.io/Godels-Incompleteness-Theorems/" target="_blank">Gödel's Incompleteness Theorems</a></span>
+    <span class="subject">Math, Logic</span>
+  </div>
 
-    <p class="day">July 12, 2019</p>
-    <p class="title"><a target="blank" href="posts/definitions/index.html">.999... and How Mathematics Works</a></p>
+  <p>It has been assumed, by mathematicians and laymen alike, that if something were true it could be proven. In 1931 Kurt Gödel showed this assumption to be mistaken. Gödel first published this result in a short paper titled “On Formally Undecidable Propositions of Principia Mathematica and Related Systems” as a response to questions that had arose about uncertainties in the foundations of mathematics. Gödel showed that such uncertainties in mathematics are inexorable and in so doing forever changed perceptions of mathematics, reasoning, and philosophy.</p>
 
-    <p class="day">June 30, 2019</p>
-    <p class="title"><a target="blank" href="posts/fibonacci/index.html">Time Complexity of Recursive Fibonacci</a></p>
+  <div class="post">
+    <span class="day">June 10, 2020</span>
+    <span class="title"><a href="https://evoniuk.github.io/Color-Representation-and-Gradients/" target="_blank">Color Representation and Gradients</a></span>
+    <span class="subject">Algorithms</span>
+  </div>
 
-    <p class="day">June 9, 2019</p>
-    <p class="title"><a target="blank" href="posts/cello/index.html">The Absolutely Definitive and Final Ranking of Bach's Cello Suites</a></p>
+  <p>This is a discussion about forming gradients through color spaces, a gradient being a smooth transition between two colors. RGB and HSL will be the focus, but much will be able to be extrapolated to other spaces. In part 1 we define the RGB and HSL color space. In part 2 we discuss what a gradient is and how to define it mathematically. In part 3, as a bit of fun, we will define an alternative way of forming gradients in HSL space.</p>
 
-    <p class="day">May 26, 2019</p>
-    <p class="title"><a target="blank" href="posts/sorting/index.html">Stability in Sorting Algorithms</a></p>
+  <div class="post">
+    <span class="day">March 8, 2020</span>
+    <span class="title"><a target="_blank" href="posts/gif/index.html">The Pronunciation of Gif</a></span>
+    <span class="subject">Language, Nonsense</span>
+  </div>
 
-    <p class="day">March 17, 2019</p>
-    <p class="title"><a target="blank" href="posts/serfdom/index.html">Serfdom</a></p>
+  <p>There comes, in life, certain times when good, God-fearing Americans encounter such bafflingly stupid arguments that they are compelled by their most inner sense of justice to respond. I recently read <a href="http://howtoreallypronounceGIF.com">How to Really Pronounce GIF</a>, an argument by Aaron Bazinet, and this is one of those times.</p>
 
-    <p class="day">February 8, 2019</p>
-    <p class="title"><a target="blank" href="posts/moby/index.html">Thoughts on Moby Dick</a></p>
+  <div class="post">
+    <span class="day">August 11, 2019</span>
+    <span class="title"><a href="posts/heather.html">Heather</a></span>
+    <span class="subject">Story</span>
+  </div>
 
-  </nav>
+  <p>My sister would always tell me that I was wasting my time by looking into the sky, but I saw more in it than I saw anywhere on Earth. Today the moon was hung above the sun, placed by God, I would have to assume, as a sign meaning something very important, and I was looking very intently at it, as, you see, my sister was not around to intrude on my proclivities. I sat against the rock wall before my home; my mother would, time and again, yell at my sister and me for running along its top, but, you see, she was not here today either...</p>
+
+  <div class="post">
+    <span class="day">July 12, 2019</span>
+    <span class="title"><a href="posts/definitions.html">.999... and How Mathematics Works</a></span>
+    <span class="subject">Math</span>
+  </div>
+
+  <p>The first thing that needs to be said is that mathematical objects aren't real. At least, they're not real like you and I. Mathematical truths and objects “exist” entirely due to definitions and the logic that ties them together. The reason why .999... is equal to one is entirely due to the way we define what it means for a decimal to “repeat”.</p>
+
+  <div class="post">
+    <span class="day">June 30, 2019</span>
+    <span class="title"><a href="posts/fibonacci.html">Time Complexity of Recursive Fibonacci</a></span>
+    <span class="subject">Algorithms, Math</span>
+  </div>
+
+  <p>The algorithm (given in C) for the <em>n<sup>th</sup></em> fibonacci number is this:</p>
+
+<pre><code><span class="keyword">int</span> <span class="function">fibonacci</span>(<span class="keyword">int</span> n) {
+  <span class="keyword">if</span> (n == 1 || n == 2) <span class="keyword">return</span> 1;
+  <span class="keyword">return</span> <span class="function">fibonacci</span>(n - 1) + <span class="function">fibonacci</span>(n - 2);
+}
+</code></pre>
+  <p>It's simple enough, but the runtime complexity isn't entirely obvious. An initial assumption might be that it is O(2<sup><em>n</em></sup>), as it is a recursive formula that branches twice each call, but this isn't the best upper-bound.</p>
+
+  <div class="post">
+    <span class="day">June 9, 2019</span>
+    <span class="title"><a href="posts/cello.html">Ranking Bach's Cello Suites</a></span>
+    <span class="subject">Music</span>
+  </div>
+
+  <p>Bach's cello suites are a towering accomplishment of baroque music. Taking a single, ostensibly monophonic instrument and utilizing all of its abilities and intracacies Bach created some of the most iconic music of all time. Enjoying thousands of recordings since they were first recorded in the thirties by Pablo Casals, from the terribly over-rated (Yo-Yo Ma) to the terribly underrated (Thomas Demenga), these pieces of music have inspired for centuries, yet they have been lacking one thing: a clickbait ranking.</p>
+
+  <div class="post">
+    <span class="day">May 26, 2019</span>
+    <span class="title"><a href="posts/sorting.html">Stability in Sorting Algorithms</a></span>
+    <span class="subject">Algorithms, Math</span>
+  </div>
+
+  <p><a target="_blank" href="https://tc39.github.io/ecma262/#sec-array.prototype.sort">The 10th edition of the ECMA specification</a> of JavaScript required that the <code>Array.sort</code> method be stable. Here I want to have a deeper discussion as to what sorting and stability mean from a formal, mathematical perspective, in addition to discussing the ramifications of the change.</p>
+
+  <div class="post">
+    <span class="day">March 17, 2019</span>
+    <span class="title"><a href="posts/serfdom.html">Serfdom</a></span>
+    <span class="subject">Story</span>
+  </div>
+
+  <p>The sun shone more brightly than usual when Vasily Ilyanovich took his first steps, as did the eyes and smile of his
+  mother. Dinara was twenty one years old, and the sight of her firstborn on the journey in which he would become a man
+  like his late father brought her a joy only enriched by the recollection of her deceased husband. She sat on a rocking
+  chair in a small room, which apart from that chair contained only a small bed and small crib, a world unto itself
+  provided entirely by Count Andrei Nikolaevich Khilkov, a man whose extraordinary wealth was exceeded only by his natural
+  affection for all men (though especially women)...</p>
+
+  <div class="post">
+    <span class="day">February 8, 2019</span>
+    <span class="title"><a href="posts/moby.html">Thoughts on Moby Dick</a></span>
+    <span class="subject">Literature</span>
+  </div>
+
+  <p>Reading Moby Dick you (or at least I) get the impression of three quite distinct sub-books. Why this might be is an open question, but Melville certainly went into this endeavor not knowing what exactly it was he planned on writing, so when he starts he does so with a cookie-cutter (for the time), mediocre sea yarn about a character named Ishmael, his meeting of a savage, and their eventual hire on a whaling vessel. This sub-book is fine enough if you're into that sort of thing, but it didn't do much for me, and it's not why Moby Dick is remembered as it is.</p>
 </body>

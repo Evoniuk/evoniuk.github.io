@@ -2,30 +2,53 @@
 
 @font-face {
   font-family: 'Computer Modern';
-  src: url('LatinModernMath-Regular.woff') format('woff');
+  src: url('../LatinModernMath-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Computer Modern';
-  src: url('cmunti-webfont.woff') format('woff');
+  src: url('../cmunti-webfont.woff') format('woff');
   font-weight: normal;
   font-style: oblique;
 }
 
-body {
+body {font-family: 'Computer Modern'}
+
+#home{
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+#home a {color: black}
+#home a:hover {border-bottom: none}
+
+header a:hover {
+  border-bottom: none;
+  color: rgb(90, 168, 200)
+}
+
+header {
+  max-width: 40rem;
   margin: auto;
-  /* line-height: 1.5rem; */
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+article {
+  margin: auto;
   display: grid;
-  grid-template-columns: .5fr 45rem 1fr;
+  grid-template-columns: .5fr 40rem 1fr;
   font-size: 16px;
-  font-family: 'Computer Modern';
 }
 
 * {grid-column: 2}
 
-p {
+p, ul, ol {
   margin-block-start: .5rem;
   margin-block-end: .5rem;
   line-height: 1.5rem;
@@ -38,7 +61,7 @@ a {
 
 a:hover {
   color: black;
-  border-bottom: 2px solid rgb(90, 168, 200);
+  border-bottom: 1px solid rgb(90, 168, 200);
 }
 
 code {
@@ -63,7 +86,7 @@ pre > code {
 
 hr {
   width: 100%;
-  border: 1px solid black;
+  border: .5px solid black;
 }
 
 img {margin: auto}
@@ -76,6 +99,7 @@ aside {
   margin: auto;
   padding: 4px;
   line-height: 1.3rem;
+  font-style: italic;
 }
 
 .function, code {color: rgb(167, 35, 57)}
@@ -83,8 +107,8 @@ aside {
 
 .comment {color: grey}
 
-@media(max-width: 72rem) {
-  body {grid-template-columns: 1fr 6fr 1fr}
+@media(max-width: 70rem) {
+  article {grid-template-columns: 1fr 5fr 1fr}
 
   aside {
     grid-column: 2;
@@ -94,11 +118,10 @@ aside {
     margin: 0;
   }
 
-  @media(max-width: 60rem) {
-    body {
+  @media(max-width: 50rem) {
+    article {
       grid-template-columns: 0 1fr 0;
       padding: 5px;
     }
   }
 }
-

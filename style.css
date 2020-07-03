@@ -1,12 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
+@font-face {
+  font-family: 'Computer Modern';
+  src: url("./LatinModernMath-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Computer Modern';
+  src: url("./cmunti-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: oblique;
+}
+
 body {
-  height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  line-height: 1.6em;
+  line-height: 1.5em;
+  font-family: 'Computer Modern';
+  max-width: 40rem;
+  margin: auto;
+  padding: 5px;
+}
+
+h1 {
+  text-align: center;
 }
 
 a {
@@ -16,23 +32,20 @@ a {
 
 a:hover {
   color: black;
-  border-bottom: 2px solid #5aa8c8;
+  border-bottom: 1px solid #5aa8c8;
 }
 
-nav {
-  max-width: 50rem;
-  margin: auto;
+.post {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 10rem 30rem 10rem;
-      grid-template-columns: 10rem 30rem 10rem;
-  grid-row-gap: 4px;
+  -ms-grid-columns: 9rem 1fr 9rem;
+      grid-template-columns: 9rem 1fr 9rem;
+  border-bottom: 1px solid black;
 }
 
 .day {
   -ms-grid-column: 1;
   grid-column: 1;
-  color: #555;
 }
 
 .title {
@@ -47,5 +60,38 @@ nav {
 .subject {
   -ms-grid-column: 3;
   grid-column: 3;
+  text-align: right;
+}
+
+code {
+  background-color: #f3e5e7;
+  padding: 2px;
+  border-radius: 3px;
+  font-family: 'Source Code Pro';
+  font-size: 13px;
+}
+
+pre {
+  line-height: 1.3rem;
+  overflow: scroll;
+  padding-left: 1rem;
+  border-left: 6px solid #f3e5e7;
+}
+
+pre > code {
+  background-color: white;
+  color: black;
+}
+
+.function, code {
+  color: #a72339;
+}
+
+.keyword {
+  color: #5aa8c8;
+}
+
+.comment {
+  color: grey;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+@font-face {
+  font-family: 'Computer Modern';
+  src: url('../LatinModernMath-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Computer Modern';
+  src: url('../cmunti-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: oblique;
+}
+
+body {
+  max-width: 40rem;
+  margin: auto;
+  font-family: 'Computer Modern';
+  padding: 5px;
+}
+
+#home{
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+#home a {color: black}
+#home a:hover {border-bottom: none}
+
+header a:hover {
+  border-bottom: none;
+  color: rgb(90, 168, 200)
+}
+
+header {
+  max-width: 40rem;
+  margin: auto;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+p {
+  line-height: 1.4rem;
+  text-align: justify;
+}
+
+hr {border: .5px solid black}
+
+blockquote, aside {font-size: smaller}
+
+aside, h1 {text-align: center}
+
+aside::before {content: '~ ';}
+
+img {
+  display: block;
+  margin: auto;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(90, 168, 200);
+}
+
+a:hover {
+  color: black;
+  border-bottom: 1px solid rgb(90, 168, 200);
+}
