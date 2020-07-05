@@ -14,7 +14,10 @@
   font-style: oblique;
 }
 
-body {font-family: 'Computer Modern'}
+body {
+  font-family: 'Computer Modern';
+  color: #444;
+}
 
 #home{
   font-weight: bold;
