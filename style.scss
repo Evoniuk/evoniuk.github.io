@@ -33,7 +33,7 @@ a {
   text-decoration: none;
   color: $accent;
   &:hover {
-    color: black;
+    color: #444;
     border-bottom: 1px solid $accent;
   }
 }
@@ -41,7 +41,7 @@ a {
 .post {
   display: grid;
   grid-template-columns: 9rem 1fr 9rem;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #444;
 }
 
 .day {grid-column: 1}
@@ -69,7 +69,7 @@ pre {
 
 pre > code {
   background-color: white;
-  color: black;
+  color: #444;
 }
 
 .function, code {color: $codeColor}

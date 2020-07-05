@@ -32,7 +32,7 @@ a {
 }
 
 a:hover {
-  color: black;
+  color: #444;
   border-bottom: 1px solid #5aa8c8;
 }
 
@@ -41,7 +41,7 @@ a:hover {
   display: grid;
   -ms-grid-columns: 9rem 1fr 9rem;
       grid-template-columns: 9rem 1fr 9rem;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #444;
 }
 
 .day {
@@ -81,7 +81,7 @@ pre {
 
 pre > code {
   background-color: white;
-  color: black;
+  color: #444;
 }
 
 .function, code {

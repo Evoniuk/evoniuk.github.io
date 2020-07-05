@@ -26,7 +26,7 @@ body {
   text-align: center;
 }
 
-#home a {color: black}
+#home a {color: #444}
 #home a:hover {border-bottom: none}
 
 header a:hover {
@@ -37,7 +37,7 @@ header a:hover {
 header {
   max-width: 40rem;
   margin: auto;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #444;
   display: flex;
   justify-content: space-between;
 }
@@ -65,7 +65,7 @@ a {
 }
 
 a:hover {
-  color: black;
+  color: #444;
   border-bottom: 1px solid rgb(90, 168, 200);
 }
 
@@ -86,12 +86,12 @@ pre {
 
 pre > code {
   background-color: white;
-  color: black;
+  color: #444;
 }
 
 hr {
   width: 100%;
-  border: .5px solid black;
+  border: .5px solid #444;
 }
 
 img {margin: auto}
@@ -109,7 +109,6 @@ aside {
 
 .function, code {color: rgb(167, 35, 57)}
 .keyword {color: rgb(90, 168, 200)}
-
 .comment {color: grey}
 
 @media(max-width: 70rem) {
