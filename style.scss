@@ -14,43 +14,61 @@
   font-style: oblique;
 }
 
+$background: white;
+$textColor: #444;
 $accent: rgb(90, 168, 200);
+
 $codeColor: rgb(167, 35, 57);
 $codeBackground: rgb(243, 229, 231);
+$commentColor: grey;
 
 body {
-  line-height: 1.5em;
   font-family: 'Computer Modern';
-  max-width: 40rem;
-  margin: auto;
   padding: 5px;
-  color: #444;
+  color: $textColor;
+  background-color: $background;
 }
 
-h1 {text-align: center}
+// headers
+
+#home{
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+#home a {color: $textColor}
+#home a:hover {border-bottom: none}
+
+header a:hover {
+  border-bottom: none;
+  color: $accent;
+}
+
+header {
+  max-width: 40rem;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 3px;
+  border-bottom: 1px solid $textColor;
+}
+
+#gap {min-width: 15px}
+
+// links
 
 a {
   text-decoration: none;
   color: $accent;
   &:hover {
-    color: #444;
+    color: $textColor;
     border-bottom: 1px solid $accent;
   }
 }
 
-.post {
-  display: grid;
-  grid-template-columns: 9rem 1fr 9rem;
-  border-bottom: 1px solid #444;
-}
-
-.day {grid-column: 1}
-.title {grid-column: 2}
-.day, .title {margin: 0}
-.subject {
-  grid-column: 3;
-  text-align: right;
-}
+// code
 
 code {
   background-color: $codeBackground;
@@ -68,10 +86,19 @@ pre {
 }
 
 pre > code {
-  background-color: white;
-  color: #444;
+  background-color: $background;
+  color: $textColor;
 }
 
 .function, code {color: $codeColor}
 .keyword {color: $accent}
-.comment {color: grey}
+.comment {color: $commentColor}
+
+// other
+
+hr {border: .5px solid $textColor}
+
+img {
+  display: block;
+  margin: auto;
+}

@@ -14,16 +14,47 @@
 }
 
 body {
-  line-height: 1.5em;
   font-family: 'Computer Modern';
-  max-width: 40rem;
-  margin: auto;
   padding: 5px;
+  color: #444;
+  background-color: white;
+}
+
+#home {
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+#home a {
   color: #444;
 }
 
-h1 {
-  text-align: center;
+#home a:hover {
+  border-bottom: none;
+}
+
+header a:hover {
+  border-bottom: none;
+  color: #5aa8c8;
+}
+
+header {
+  max-width: 40rem;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 3px;
+  border-bottom: 1px solid #444;
+}
+
+#gap {
+  min-width: 15px;
 }
 
 a {
@@ -34,34 +65,6 @@ a {
 a:hover {
   color: #444;
   border-bottom: 1px solid #5aa8c8;
-}
-
-.post {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 9rem 1fr 9rem;
-      grid-template-columns: 9rem 1fr 9rem;
-  border-bottom: 1px solid #444;
-}
-
-.day {
-  -ms-grid-column: 1;
-  grid-column: 1;
-}
-
-.title {
-  -ms-grid-column: 2;
-  grid-column: 2;
-}
-
-.day, .title {
-  margin: 0;
-}
-
-.subject {
-  -ms-grid-column: 3;
-  grid-column: 3;
-  text-align: right;
 }
 
 code {
@@ -94,5 +97,14 @@ pre > code {
 
 .comment {
   color: grey;
+}
+
+hr {
+  border: 0.5px solid #444;
+}
+
+img {
+  display: block;
+  margin: auto;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,21 @@
+body {
+  max-width: 40rem;
+  margin: auto;
+  line-height: 1.5em;
+}
+
+h1 {text-align: center}
+
+.post {
+  display: grid;
+  grid-template-columns: 9rem 1fr 9rem;
+  border-bottom: 1px solid #444;
+}
+
+.day {grid-column: 1}
+.title {grid-column: 2}
+.day, .title {margin: 0}
+.subject {
+  grid-column: 3;
+  text-align: right;
+}

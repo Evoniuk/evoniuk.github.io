@@ -1,57 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
-
-@font-face {
-  font-family: 'Computer Modern';
-  src: url('../../fonts/LatinModernMath-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Computer Modern';
-  src: url('../../fonts/cmunti-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: oblique;
-}
-
-body {
-  font-family: 'Computer Modern';
-  color: #444;
-}
-
-#home{
-  font-weight: bold;
-  margin: 10px 0;
-  font-size: 18px;
-  text-align: center;
-}
-
-#home a {color: #444}
-#home a:hover {border-bottom: none}
-
-header a:hover {
-  border-bottom: none;
-  color: rgb(90, 168, 200)
-}
-
-header {
-  max-width: 40rem;
-  margin: auto;
-  border-bottom: 1px solid #444;
-  display: flex;
-  justify-content: space-between;
-}
-
-#gap {min-width: 15px}
-
 article {
   margin: auto;
   display: grid;
   grid-template-columns: .5fr 40rem 1fr;
-  font-size: 16px;
 }
 
 * {grid-column: 2}
+
+h1 {font-size: 2em}
 
 p, ul, ol {
   margin-block-start: .5rem;
@@ -59,42 +14,7 @@ p, ul, ol {
   line-height: 1.5rem;
 }
 
-a {
-  text-decoration: none;
-  color: rgb(90, 168, 200);
-}
-
-a:hover {
-  color: #444;
-  border-bottom: 1px solid rgb(90, 168, 200);
-}
-
-code {
-  background-color: rgb(243, 229, 231);
-  padding: 2px;
-  border-radius: 3px;
-  font-family: 'Source Code Pro';
-  font-size: 13px;
-}
-
-pre {
-  line-height: 1.3rem;
-  overflow: scroll;
-  padding-left: 1rem;
-  border-left: 6px solid rgb(243, 229, 231);
-}
-
-pre > code {
-  background-color: white;
-  color: #444;
-}
-
-hr {
-  width: 100%;
-  border: .5px solid #444;
-}
-
-img {margin: auto}
+hr {width: 100%}
 
 aside {
   font-size: smaller;
@@ -107,25 +27,17 @@ aside {
   font-style: italic;
 }
 
-.function, code {color: rgb(167, 35, 57)}
-.keyword {color: rgb(90, 168, 200)}
-.comment {color: grey}
-
 @media(max-width: 70rem) {
   article {grid-template-columns: 1fr 5fr 1fr}
 
   aside {
     grid-column: 2;
     max-width: 100%;
-    text-align: left;
     padding: 4px 0;
     margin: 0;
   }
 
   @media(max-width: 50rem) {
-    article {
-      grid-template-columns: 0 1fr 0;
-      padding: 5px;
-    }
+    article {grid-template-columns: 0 1fr 0}
   }
 }
