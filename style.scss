@@ -22,6 +22,11 @@ $codeColor: rgb(167, 35, 57);
 $codeBackground: rgb(243, 229, 231);
 $commentColor: grey;
 
+::selection {
+  color: $background;
+  background-color: $accent;
+}
+
 body {
   font-family: 'Computer Modern';
   padding: 5px;
@@ -74,7 +79,7 @@ code {
   background-color: $codeBackground;
   padding: 2px;
   border-radius: 3px;
-  font-family: 'Source Code Pro';
+  font-family: 'Source Code Pro', monospace;
   font-size: 13px;
 }
 

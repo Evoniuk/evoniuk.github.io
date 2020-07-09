@@ -13,6 +13,16 @@
   font-style: oblique;
 }
 
+::-moz-selection {
+  color: white;
+  background-color: #5aa8c8;
+}
+
+::selection {
+  color: white;
+  background-color: #5aa8c8;
+}
+
 body {
   font-family: 'Computer Modern';
   padding: 5px;
@@ -71,7 +81,7 @@ code {
   background-color: #f3e5e7;
   padding: 2px;
   border-radius: 3px;
-  font-family: 'Source Code Pro';
+  font-family: 'Source Code Pro', monospace;
   font-size: 13px;
 }
 

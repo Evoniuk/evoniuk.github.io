@@ -10,6 +10,7 @@ h1 {text-align: center}
   display: grid;
   grid-template-columns: 9rem 1fr 9rem;
   border-bottom: 1px solid #444;
+  margin-top: 2rem;
 }
 
 .day {grid-column: 1}
