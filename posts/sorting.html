@@ -94,7 +94,7 @@
 
     <p>Here is an implementation of mergesort in JavaScript.</p>
 
-<pre><code><span class="keyword">function</span> <span class="function">mergesort</span>(arr) {
+<pre><span class="keyword">function</span> <span class="function">mergesort</span>(arr) {
   <span class="keyword">function</span> <span class="function">sort</span>(arr, helper, low, high) {
     <span class="keyword">if</span> (low < high) {
       <span class="keyword">let</span> middle = low + ((high - low) >> 1);
@@ -118,7 +118,7 @@
   <span class="keyword">let</span> remaining = middle - helpL;
   <span class="keyword">for</span> (let i = 0; i <= remaining; i++) arr[current + i] = helper[helpL + i]
 }
-</code></pre>
+</pre>
 
     <p>The line below the comment, as the comment indicates, requires the comparison to be '≤' in order to be stable. Switching to a simple '<' would still give a valid sorting algorithm, but it would no longer be stable. As an exercise you might try to convince yourself that this is true.</p>
 
@@ -126,7 +126,7 @@
 
     <p>Here is an implementation of quicksort in JavaScript.</p>
 
-<pre><code><span class="keyword">function</span> <span class="function">quicksort</span>(arr) {
+<pre><span class="keyword">function</span> <span class="function">quicksort</span>(arr) {
   <span class="keyword">function</span> <span class="function">sort</span>(arr, low, high) {
     <span class="keyword">let</span> index = <span class="function">partition</span>(arr, low, high);
     <span class="keyword">if</span> (low < index - 1) <span class="function">sort</span>(arr, low, index - 1);
@@ -144,7 +144,7 @@
   }                                            <span class="comment">// indexes low and high in arr</span>
   <span class="keyword">return</span> low
 }
-</code></pre>
+</pre>
 
     <p>This algorithm is unstable. To see why, we will consider a simple example.</p>
 

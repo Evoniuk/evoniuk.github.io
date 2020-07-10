@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US"></html>
+<html lang="en-US">
 
 <head>
   <meta charset="UTF-8">
@@ -56,7 +56,7 @@
     <span class="subject">Math</span>
   </div>
 
-  <p>The first thing that needs to be said is that mathematical objects aren't real. At least, they're not real like you and I. Mathematical truths and objects “exist” entirely due to definitions and the logic that ties them together. The reason why .999... is equal to one is entirely due to the way we define what it means for a decimal to “repeat”.</p>
+  <p>The first thing that needs to be said is that mathematical objects aren't real. At least, they're not real like you and I. Mathematical truths and objects “exist” entirely due to definitions and the logic that ties them together. The reason why .999... is equal to one is entirely due to the way we define what it means for a decimal to repeat.</p>
 
   <div class="post">
     <span class="day">June 30, 2019</span>
@@ -66,11 +66,11 @@
 
   <p>The algorithm (given in C) for the <em>n<sup>th</sup></em> fibonacci number is this:</p>
 
-<pre><code><span class="keyword">int</span> <span class="function">fibonacci</span>(<span class="keyword">int</span> n) {
+<pre><span class="keyword">int</span> <span class="function">fibonacci</span>(<span class="keyword">int</span> n) {
   <span class="keyword">if</span> (n == 1 || n == 2) <span class="keyword">return</span> 1;
   <span class="keyword">return</span> <span class="function">fibonacci</span>(n - 1) + <span class="function">fibonacci</span>(n - 2);
 }
-</code></pre>
+</pre>
   <p>It's simple enough, but the runtime complexity isn't entirely obvious. An initial assumption might be that it is O(2<sup><em>n</em></sup>), as it is a recursive formula that branches twice each call, but this isn't the best upper-bound.</p>
 
   <div class="post">
@@ -110,3 +110,4 @@
 
   <p>Reading Moby Dick you (or at least I) get the impression of three quite distinct sub-books. Why this might be is an open question, but Melville certainly went into this endeavor not knowing what exactly it was he planned on writing, so when he starts he does so with a cookie-cutter (for the time), mediocre sea yarn about a character named Ishmael, his meeting of a savage, and their eventual hire on a whaling vessel. This sub-book is fine enough if you're into that sort of thing, but it didn't do much for me, and it's not why Moby Dick is remembered as it is.</p>
 </body>
+</html>

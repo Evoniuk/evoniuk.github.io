@@ -21,6 +21,7 @@ $accent: rgb(90, 168, 200);
 $codeColor: rgb(167, 35, 57);
 $codeBackground: rgb(243, 229, 231);
 $commentColor: grey;
+$stringColor: rgb(15, 170, 15);
 
 ::selection {
   color: $background;
@@ -52,7 +53,6 @@ header a:hover {
 }
 
 header {
-  max-width: 40rem;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -75,12 +75,15 @@ a {
 
 // code
 
+code, pre {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+}
+
 code {
   background-color: $codeBackground;
   padding: 2px;
   border-radius: 3px;
-  font-family: 'Source Code Pro', monospace;
-  font-size: 13px;
 }
 
 pre {
@@ -90,14 +93,10 @@ pre {
   border-left: 6px solid $codeBackground;
 }
 
-pre > code {
-  background-color: $background;
-  color: $textColor;
-}
-
 .function, code {color: $codeColor}
 .keyword {color: $accent}
 .comment {color: $commentColor}
+.string {color: $stringColor}
 
 // other
 

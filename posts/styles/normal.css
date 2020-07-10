@@ -3,7 +3,7 @@ body {
   margin: auto;
 }
 
-p {
+p, li {
   line-height: 1.4rem;
   text-align: justify;
 }
@@ -11,4 +11,3 @@ p {
 blockquote, aside {font-size: smaller}
 
 aside {text-align: center}
-aside::before {content: '~ '}

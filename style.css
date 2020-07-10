@@ -51,7 +51,6 @@ header a:hover {
 }
 
 header {
-  max-width: 40rem;
   margin: auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -77,12 +76,15 @@ a:hover {
   border-bottom: 1px solid #5aa8c8;
 }
 
+code, pre {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+}
+
 code {
   background-color: #f3e5e7;
   padding: 2px;
   border-radius: 3px;
-  font-family: 'Source Code Pro', monospace;
-  font-size: 13px;
 }
 
 pre {
@@ -90,11 +92,6 @@ pre {
   overflow: scroll;
   padding-left: 1rem;
   border-left: 6px solid #f3e5e7;
-}
-
-pre > code {
-  background-color: white;
-  color: #444;
 }
 
 .function, code {
@@ -107,6 +104,10 @@ pre > code {
 
 .comment {
   color: grey;
+}
+
+.string {
+  color: #0faa0f;
 }
 
 hr {
