@@ -97,18 +97,18 @@
 <pre><span class="keyword">function</span> <span class="function">mergesort</span>(arr) {
   <span class="keyword">function</span> <span class="function">sort</span>(arr, helper, low, high) {
     <span class="keyword">if</span> (low < high) {
-      <span class="keyword">let</span> middle = low + ((high - low) >> 1);
+      <span class="keyword">let</span> middle = low + ((high - low) >> <span class="number">1</span>);
       <span class="function">sort</span>(arr, helper, low, middle);
-      <span class="function">sort</span>(arr, helper, middle + 1, high);
+      <span class="function">sort</span>(arr, helper, middle + <span class="number">1</span>, high);
       <span class="function">merge</span>(arr, helper, low, middle, high)
     }
   }
-  <span class="function">sort</span>(arr, [], 0, arr.length - 1)
+  <span class="function">sort</span>(arr, [], <span class="number">0</span>, arr.length - <span class="number">1</span>)
 }
 
 <span class="keyword">function</span> <span class="function">merge</span>(arr, helper, low, middle, high) {
   <span class="keyword">for</span> (let i = low; i <= high; i++) helper[i] = arr[i];
-  <span class="keyword">let</span> helpL = low, helpR = middle + 1;
+  <span class="keyword">let</span> helpL = low, helpR = middle + <span class="number">1</span>;
   <span class="keyword">let</span> current = low;
   <span class="keyword">while</span> (helpL <= middle && helpR <= high) {
     <span class="comment">//   Removing this ↓ '=' sign would cause instability despite still sorting</span>
@@ -116,7 +116,7 @@
     <span class="keyword">else</span> arr[current++] = helper[helpR++];
   }
   <span class="keyword">let</span> remaining = middle - helpL;
-  <span class="keyword">for</span> (let i = 0; i <= remaining; i++) arr[current + i] = helper[helpL + i]
+  <span class="keyword">for</span> (let i = <span class="number">0</span>; i <= remaining; i++) arr[current + i] = helper[helpL + i]
 }
 </pre>
 
@@ -129,14 +129,14 @@
 <pre><span class="keyword">function</span> <span class="function">quicksort</span>(arr) {
   <span class="keyword">function</span> <span class="function">sort</span>(arr, low, high) {
     <span class="keyword">let</span> index = <span class="function">partition</span>(arr, low, high);
-    <span class="keyword">if</span> (low < index - 1) <span class="function">sort</span>(arr, low, index - 1);
+    <span class="keyword">if</span> (low < index - <span class="number">1</span>) <span class="function">sort</span>(arr, low, index - <span class="number">1</span>);
     <span class="keyword">if</span> (index < high) <span class="function">sort</span>(arr, index, high);
   }
-  <span class="function">sort</span>(arr, 0, arr.length - 1)
+  <span class="function">sort</span>(arr, <span class="number">0</span>, arr.length - 1)
 }
 
 <span class="keyword">function</span> <span class="function">partition</span>(arr, low, high) {
-  <span class="keyword">let</span> pivot = arr[low + ((high - low) >> 1)];
+  <span class="keyword">let</span> pivot = arr[low + ((high - low) >> <span class="number">1</span>)];
   <span class="keyword">while</span> (low <= high) {
     <span class="keyword">while</span> (arr[low] < pivot) low++;
     <span class="keyword">while</span> (pivot< arr[high]) high--;

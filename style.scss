@@ -17,16 +17,16 @@
 $background: white;
 $textColor: #444;
 $accent: rgb(90, 168, 200);
+$selectionColor: rgba(255, 217, 0, 0.7);
 
 $codeColor: rgb(167, 35, 57);
 $codeBackground: rgb(243, 229, 231);
 $commentColor: grey;
 $stringColor: rgb(15, 170, 15);
+$numberColor: rgb(47, 143, 150);
+$objectColor: goldenrod;
 
-::selection {
-  color: $background;
-  background-color: $accent;
-}
+::selection {background-color: $selectionColor}
 
 body {
   font-family: 'Computer Modern';
@@ -97,6 +97,8 @@ pre {
 .keyword {color: $accent}
 .comment {color: $commentColor}
 .string {color: $stringColor}
+.number {color: $numberColor}
+.object {color: $objectColor;}
 
 // other
 
@@ -105,4 +107,9 @@ hr {border: .5px solid $textColor}
 img {
   display: block;
   margin: auto;
+}
+
+h4 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
 }

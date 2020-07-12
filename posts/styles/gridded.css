@@ -27,6 +27,11 @@ aside {
   font-style: italic;
 }
 
+aside code {
+  font-size: smaller;
+  font-style: normal;
+}
+
 @media(max-width: 70rem) {
   article {grid-template-columns: 1fr 5fr 1fr}
 

@@ -14,13 +14,11 @@
 }
 
 ::-moz-selection {
-  color: white;
-  background-color: #5aa8c8;
+  background-color: rgba(255, 217, 0, 0.7);
 }
 
 ::selection {
-  color: white;
-  background-color: #5aa8c8;
+  background-color: rgba(255, 217, 0, 0.7);
 }
 
 body {
@@ -110,6 +108,14 @@ pre {
   color: #0faa0f;
 }
 
+.number {
+  color: #2f8f96;
+}
+
+.object {
+  color: goldenrod;
+}
+
 hr {
   border: 0.5px solid #444;
 }
@@ -117,5 +123,10 @@ hr {
 img {
   display: block;
   margin: auto;
+}
+
+h4 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
 }
 /*# sourceMappingURL=style.css.map */

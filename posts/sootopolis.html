@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jack Evoniuk">
+
+  <title>Solving Sootopolis City</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./styles/gridded.css">
+</head>
+<body>
+  <div id="home"><a href="../index.html">Just Some Thoughts</a></div>
+
+  <header>
+    <a href="https://evoniuk.github.io/Godels-Incompleteness-Theorems/" target="_blank">< Gödel's Incompleteness Theorems</a>
+    <span id="gap"></span>
+    <!-- <a href="./definitions.html">.999... and How Mathematics Works ></a> -->
+  </header>
+
+  <article>
+    <h1>Solving Sootopolis City</h1>
+
+    <p>In the final gym in Pokemon Ruby and Sapphire there is a puzzle you have to solve before being able to challenge Gym Leader Wallace. It's arranged like this:</p>
+
+    <img src="./images/RS_Sootopolis_Gym.png" alt="Sootopolis City Gym">
+
+    <p>To solve it, you have to step on each block of ice exactly once in each of the three sections. Not only that, but the final block you step on in each section has to be the one situated before the ice slide leading to the next section. Once all the squares are stepped on in a section the ice slide turns into stairs, allowing access to the next section of the puzzle, and finally Gym Leader Wallace.</p>
+
+    <p>In this article we'll build a program that solves this puzzle, and all puzzles like it, with about 50 lines of JavaScript.</p>
+
+    <h2>Step 1: Defining the Problem</h2>
+
+    <p>The first step to solving any type of problem is to define it. Because we are going to write a program to solve these puzzles, we need to have a means to represent all the information relevant to the problem. The fact that we're dealing with ice, or that our goal is to fight Wallce, isn't relevant. So first, we need to list out the nature of our problem, the constraints on it, and the conditions that define a solution:</p>
+
+    <ul>
+      <li>Tiles are layed out in a 2 dimensional rectangle.</li>
+      <li>We must step on each tile of ice exactly once.</li>
+      <li>We may not step on tiles with stones on them.</li>
+      <li>We begin at the center of the bottom of the ice.</li>
+      <li>We must end at the center of the top of the ice.</li>
+    </ul>
+
+    <p>With those conditions we have completely defined all the relevant information in our problem. Now that this is done we can address how to represent the problem in terms a computer can solve.</p>
+
+    <p>Before going on, however, I should mention that there's actually a hidden assumption here: we are assuming that the same method can solve each of the three parts of the larger puzzle. In our case our assumption is obviously justified, but if the solution to one part of a problem depended on the solution to another this would not be the case. Always be careful to examine your assumptions to ensure that they're justified.</p>
+
+    <h2>Part 2: Representing the Problem</h2>
+
+    <p>This step often involves some aesthetic decisions, but in our case isn't particularly difficult.</p>
+
+    <p>The way I've decided to represent the problem in our computer program is like so:</p>
+
+    <ul>
+      <li>The tiles will be represented as a 2 dimensional array.</li>
+      <li>Stones and tiles that have been stepped on will be represented as a 1.</li>
+      <li>Tiles that have not been stepped on will be represented as a 0.</li>
+      <li>The starting position will be the middle element of the final row in our 2D array.</li>
+      <li>The final position will be the middle element of the first row in our 2D array.</li>
+    </ul>
+
+    <aside>We can recognize that stones and stepped-on tiles both have the property that we may not step on them. Given this they can be represented in the same fashion.</aside>
+
+    <p>This may not have been the represesntation that you had in mind, but it's what seemed sensible to me. There is rarely a single correct way to represent a problem (though there are always many wrong ways), so always be sure to consider your options. For this problem we might have used a 1 dimensional array and kept track of the number of rows and columns seperately, or we might have used booleans instead of 1's and 0's. Regardless, once a represesntation is decided it comes time to use it in order to generate solutions.</p>
+
+    <h2>Part 3: Solving the Problem</h2>
+
+    <p>Now comes the hard part. But also the fun part.</p>
+
+    <p>Given the way that we have chosen to represent our problem, we might start writing our program by creating the representation of the first part of the puzzle:</p>
+
+<pre><span class="keyword">const</span> firstPuzzle = [
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],
+  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],
+];</pre>
+
+    <p>This gives us something to work with.</p>
+
+    <p>Now we want to plan how we're going to generally approach the problem.</p>
+
+    <h3>Defining the Functions</h3>
+
+    <p>The plan that I've adopted is this: we will have three functions,</p>
+
+    <ul>
+      <li><code>findSolutions</code></li>
+      <li><code>traverse</code></li>
+      <li><code>validate</code></li>
+    </ul>
+
+    <p><code>findSolutions</code> will be the function that coordinates our search for solutions. It will initialize the starting position and create an array <code>solutions</code> in which solutions will be recorded. It will also initialize the variable in which we record the paths taken.</p>
+
+    <p><code>traverse</code> will recursively travel about the 2D array, recording where it has been, where it is, and the path it has taken. It will produce a depth-first search. This is the function that will do most of the work.</p>
+
+    <p>Finally, <code>validate</code> will be a small function that simply checks if a solution has been reached as a function of where <code>traverse</code> has visited and where it currently is.</p>
+
+    <p>That's the general scheme. Now we want to think about what sort of arguments we'll pass to each function, and then build them.</p>
+
+    <p><code>findSolutions</code> only needs to take one argument, the 2D array representing the puzzle. We'll call this parameter <code>puzzle</code>, so we'll have <code>findSolutions(puzzle)</code>.</p>
+
+    <p><code>traverse</code> is considerably more complicated. It has to know where it has traveled, where it currently is, and the path it's taken to get there. In addition to this, it also requires access to the <code>solutions</code> array created in <code>findSolutions</code>.</p>
+
+    <p>Where it has traveled can be stored in a 2D array in the same format as <code>puzzles</code>. We will call this array <code>board</code>. Its current location is a combination of a row and column, so can be stored in an array in the format <code>[row, column]</code>, which we will call <code>place</code>. The path it has taken will be an array of the steps it has taken so far, which we will call <code>path</code>. With this we will get <code>traverse(board, place, path, solutions)</code>.</p>
+
+    <aside>The steps taken can be represented in many ways, but we will opt for simple, readable strings like <code>"up"</code> and <code>"left"</code>.</aside>
+
+    <p>Finally, we know <code>validate</code> will need to know where <code>traverse</code> has been and where it currently is. As such, we will need to pass it <code>board</code> and <code>place</code>, yielding <code>validate(board, place)</code>.</p>
+
+    <p>With the functions defined, we can now start building them.</p>
+
+    <h3>Building the Functions</h3>
+
+    <p>We now know the interface of our three functions:</p>
+
+    <ul>
+      <li><code>findSolutions(puzzle)</code></li>
+      <li><code>traverse(board, place, path, solutions)</code></li>
+      <li><code>validate(board, place)</code></li>
+    </ul>
+
+    <p>Now all that's left is build their implementation.</p>
+
+    <h4><code>findSolutions(puzzle)</code></h4>
+
+    <p>This function only needs to initialize the variables it will end up passing to <code>traverse</code>. We know <code>traverse</code> requires knowledge of where it's been, where it is, and what steps it has taken, in addition to having access to a solutions array.</p>
+
+    <p>As for recording where it's been, that role can be filled by <code>puzzle</code> itself initially. The initial position is the middle of the bottom of the board, and will be represented by the the variable <code>start</code>. The steps taken initially are none, and thus an empty array, and the solutions array can be initialized as an empty array.</p>
+
+    <p>I've produced the above behavior in code like so:</p>
+
+<pre><span class="keyword">function</span> <span class="function">findSolutions</span>(puzzle) {
+  <span class="keyword">const</span> start = [puzzle.length - <span class="number">1</span>, (puzzle[<span class="number">0</span>].length - <span class="number">1</span>) / <span class="number">2</span>];
+
+  <span class="keyword">const</span> solutions = [];
+  <span class="function">traverse</span>(puzzle, start, [], solutions);
+
+  <span class="keyword">return</span> solutions;
+}</pre>
+
+    <p>We now need to construct the function we call in the above code.</p>
+
+    <h4><code>traverse(board, place, path, solutions)</code></h4>
+
+    <p>To build a recursive function you need two things: a base case, and a recursive case.</p>
+
+    <p>Our base case is a solved puzzle. Checking whether this condition is met will be handled in <code>validate</code>. In our base case we append <code>path</code> to <code>solutions</code>.</p>
+
+    <p>In our recursive case we will look through the spaces above, below, left, and right of the current square and traverse the ones that are viable (i.e. they exist and have 0's on them).</p>
+
+    <p>In order for our function to be able to perform the above behavior, it first needs to mark that it has been where it currently it is. This means that it will take <code>place</code> and mark the corresponding spot in the 2D array that represents the puzzle thus far. We need to be careful about this, however, as <code>board</code> is mutable, and we want a unique copy for each call of <code>traverse</code>. Because of this we will create a new board <code>newBoard</code> and ititialize it to be equal to <code>board</code>, except that we'll mark the current place as 1. We'll accomplish this with the following code:</p>
+
+<pre><span class="keyword">const</span> newBoard = [];
+board.<span class="function">forEach</span>(row => newBoard.<span class="function">push</span>([].<span class="function">concat</span>(row)));
+newBoard[place[<span class="number">0</span>]][place[<span class="number">1</span>]] = <span class="number">1</span>;</pre>
+
+    <aside>We use <code>[].concat()</code>, as it creates a new array instead of mutating the old.</aside>
+
+    <p>After this, we can check if <code>newBoard</code> represents a solution, and if so add add <code>path</code> to <code>solutions</code>. Given that solution-checking is handled by <code>validate</code>, we can do this with just two lines:</p>
+
+<pre><span class="keyword">if</span> (<span class="function">validate</span>(newBoard, place))
+  solutions.<span class="function">push</span>(path);</pre>
+
+    <p>Now we need to handle the recursive aspect of this function. The desired behavior is to look at all the adjacent squares and traverse them if they have a 0. If this is the case we will want to create new <code>place</code> and <code>path</code> variables to pass to the next call of <code>traverse</code>.</p>
+
+    <p>The way we will do this is by creating two arrays, <code>newPlaces</code> and <code>newSteps</code>, to which we will add the new places and new steps created by the viable next steps. We will then loop through these arrays and call <code>traverse</code> with their data. Ignoring for now how we'll create these arrays, the code will look like this:</p>
+
+<pre><span class="keyword">const</span> newPlaces = [], newSteps = [];
+
+<span class="comment">// code constructing newPlaces and newSteps omitted</span>
+
+<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < newPlaces.length; i++)
+  <span class="function">traverse</span>(newBoard, newPlaces[i], path.<span class="function">concat</span>(newSteps[i]), solutions);
+</pre>
+
+    <aside>Given that <code>newPlaces</code> and <code>newSteps</code> will be the same length we only need the loop to go until <code>newPlaces.length</code>.</aside>
+
+    <p>Now the only thing left to do is write the code that constructs <code>newPlaces</code> and <code>newSteps</code>.</p>
+
+    <p>This code isn't particularly difficult, it's mostly just tedious case-checking. We need to ensure that we're not stepping out of the bounds of <code>newBoard</code>, in addition to making sure where we want to step doesn't have a 1. If these conditions are met we push the new place onto <code>newPlaces</code> and the direction of our step onto <code>newSteps</code>. For checking the space above this will look like</p>
+
+<pre><span class="keyword">if</span> (place[<span class="number">0</span>] > <span class="number">0</span> && newBoard[place[<span class="number">0</span>] - <span class="number">1</span>][place[<span class="number">1</span>]] !== <span class="number">1</span>) {
+  newPlaces.<span class="function">push</span>([place[<span class="number">0</span>] - <span class="number">1</span>, place[<span class="number">1</span>]]);
+  newSteps.<span class="function">push</span>('<span class="string">up</span>');
+}</pre>
+
+    <p>The other directions are very much analagous. They are as follows:</p>
+
+<pre><span class="comment">// check space to the left</span>
+<span class="keyword">if</span> (place[<span class="number">1</span>] > <span class="number">0</span> && newBoard[place[<span class="number">0</span>]][place[<span class="number">1</span>] - <span class="number">1</span>] !== <span class="number">1</span>) {
+  newPlaces.<span class="function">push</span>([place[<span class="number">0</span>], place[<span class="number">1</span>] - <span class="number">1</span>]);
+  newSteps.<span class="function">push</span>('<span class="string">left</span>');
+}
+
+<span class="comment">// check space to the right</span>
+<span class="keyword">if</span> (place[<span class="number">1</span>] + <span class="number">1</span> < newBoard[<span class="number">0</span>].length && newBoard[place[<span class="number">0</span>]][place[<span class="number">1</span>] + <span class="number">1</span>] !== <span class="number">1</span>) {
+  newPlaces.<span class="function">push</span>([place[<span class="number">0</span>], place[<span class="number">1</span>] + <span class="number">1</span>]);
+  newSteps.<span class="function">push</span>('<span class="string">right</span>');
+}
+
+<span class="comment">// check space below</span>
+<span class="keyword">if</span> (place[<span class="number">0</span>] + <span class="number">1</span> < newBoard.length && newBoard[place[<span class="number">0</span>] + <span class="number">1</span>][place[<span class="number">1</span>]] !== <span class="number">1</span>) {
+  newPlaces.<span class="function">push</span>([place[<span class="number">0</span>] + <span class="number">1</span>, place[<span class="number">1</span>]]);
+  newSteps.<span class="function">push</span>('<span class="string">down</span>');
+}</pre>
+
+    <p>And with that we've made produced <code>traverse</code>. The finished product is this:</p>
+
+<pre><span class="keyword">function</span> <span class="function">traverse</span>(board, place, path, solutions) {
+  <span class="keyword">const</span> newBoard = [];
+  board.<span class="function">forEach</span>(row => newBoard.<span class="function">push</span>([].<span class="function">concat</span>(row)));
+  newBoard[place[<span class="number">0</span>]][place[<span class="number">1</span>]] = <span class="number">1</span>;
+
+  <span class="keyword">if</span> (<span class="function">validate</span>(newBoard, place))
+    solutions.<span class="function">push</span>(path);
+
+  <span class="keyword">const</span> newPlaces = [], newSteps = [];
+
+  <span class="comment">// check space above</span>
+  <span class="keyword">if</span> (place[<span class="number">0</span>] > <span class="number">0</span> && newBoard[place[<span class="number">0</span>] - <span class="number">1</span>][place[<span class="number">1</span>]] !== <span class="number">1</span>) {
+    newPlaces.<span class="function">push</span>([place[<span class="number">0</span>] - <span class="number">1</span>, place[<span class="number">1</span>]]);
+    newSteps.<span class="function">push</span>('<span class="string">up</span>');
+  }
+
+  <span class="comment">// check space to the left</span>
+  <span class="keyword">if</span> (place[<span class="number">1</span>] > <span class="number">0</span> && newBoard[place[<span class="number">0</span>]][place[<span class="number">1</span>] - <span class="number">1</span>] !== <span class="number">1</span>) {
+    newPlaces.<span class="function">push</span>([place[<span class="number">0</span>], place[<span class="number">1</span>] - <span class="number">1</span>]);
+    newSteps.<span class="function">push</span>('<span class="string">left</span>');
+  }
+
+  <span class="comment">// check space to the right</span>
+  <span class="keyword">if</span> (place[<span class="number">1</span>] + <span class="number">1</span> < newBoard[<span class="number">0</span>].length && newBoard[place[<span class="number">0</span>]][place[<span class="number">1</span>] + <span class="number">1</span>] !== <span class="number">1</span>) {
+    newPlaces.<span class="function">push</span>([place[<span class="number">0</span>], place[<span class="number">1</span>] + <span class="number">1</span>]);
+    newSteps.<span class="function">push</span>('<span class="string">right</span>');
+  }
+
+  <span class="comment">// check space below</span>
+  <span class="keyword">if</span> (place[<span class="number">0</span>] + <span class="number">1</span> < newBoard.length && newBoard[place[<span class="number">0</span>] + <span class="number">1</span>][place[<span class="number">1</span>]] !== <span class="number">1</span>) {
+    newPlaces.<span class="function">push</span>([place[<span class="number">0</span>] + <span class="number">1</span>, place[<span class="number">1</span>]]);
+    newSteps.<span class="function">push</span>('<span class="string">down</span>');
+  }
+
+  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < newPlaces.length; i++)
+    <span class="function">traverse</span>(newBoard, newPlaces[i], path.concat(newSteps[i]), solutions);
+</pre>
+
+    <p>Now there's only one more function to build, and it's the simplest of the three.</p>
+
+    <h4><code>validate(board, place)</code></h4>
+
+    <p>All we need from this function is to check if the the current board and place represent a solution. This happens when there are no 0's on the board and we're in the middle of the top of the board. The code checking for this is rather straightforward:</p>
+
+<pre><span class="keyword">function</span> <span class="function">validate</span>(board, place) {
+  <span class="keyword">for</span> (<span class="keyword">let</span> row = <span class="number">0</span>; row < board.length; row++)
+    <span class="keyword">if</span> (board[row].<span class="function">includes</span>(<span class="number">0</span>)) <span class="keyword">return false</span>;
+
+  <span class="keyword">return</span> place[<span class="number">0</span>] === <span class="number">0</span> && place[<span class="number">1</span>] === (board[<span class="number">0</span>].length - <span class="number">1</span>) / <span class="number">2</span>;
+}</pre>
+
+    <p>And with that we have solved our problem.</p>
+
+    <h2>Part 4: Checking the Solutions</h2>
+
+    <p>No code, especially recursive code, should ever go unchecked. If we look at the output of</p>
+
+<pre><span class="keyword">const</span> firstPuzzle = [
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],
+  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],
+];
+
+<span class="object">console</span>.<span class="function">log</span>(<span class="function">findSolutions</span>(firstPuzzle));</pre>
+
+    <p>We get <code>[ [ 'right', 'up', 'left', 'left', 'up', 'right' ] ]</code>, just as we would hope.</p>
+
+    <p>Repeating this for the second and third puzzles also produces valid paths:</p>
+
+<pre><span class="keyword">const</span> secondPuzzle = [
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>,],
+];
+
+<span class="object">console</span>.<span class="function">log</span>(<span class="function">findSolutions</span>(secondPuzzle));</pre>
+
+    <p>produces</p>
+
+<pre>[ [ '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">right</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>' ] ]</pre>
+
+    <p>And</p>
+
+<pre><span class="keyword">const</span> thirdPuzzle = [
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,],
+  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>,],
+];
+
+<span class="object">console</span>.<span class="function">log</span>(<span class="function">findSolutions</span>(secondPuzzle));</pre>
+
+    <p>produces, after a couple seconds of effort,</p>
+
+<pre>[ [ '<span class="string">right</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">down</span>',
+    '<span class="string">down</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">down</span>',
+    '<span class="string">left</span>',
+    '<span class="string">up</span>',
+    '<span class="string">left</span>',
+    '<span class="string">down</span>',
+    '<span class="string">left</span>',
+    '<span class="string">up</span>',
+    '<span class="string">left</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>' ],
+  [ '<span class="string">right</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">down</span>',
+    '<span class="string">left</span>',
+    '<span class="string">up</span>',
+    '<span class="string">left</span>',
+    '<span class="string">down</span>',
+    '<span class="string">down</span>',
+    '<span class="string">left</span>',
+    '<span class="string">left</span>',
+    '<span class="string">down</span>',
+    '<span class="string">left</span>',
+    '<span class="string">up</span>',
+    '<span class="string">left</span>',
+    '<span class="string">down</span>',
+    '<span class="string">left</span>',
+    '<span class="string">up</span>',
+    '<span class="string">left</span>',
+    '<span class="string">up</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>',
+    '<span class="string">down</span>',
+    '<span class="string">right</span>',
+    '<span class="string">up</span>',
+    '<span class="string">right</span>' ] ]</pre>
+
+    <p>Which are all exactly as we'd like. Feel free to check the solutions yourself.</p>
+
+    <p>If we really want to be sure, we could even try the puzzles from Pokemon Emerald.</p>
+
+    <img src="./images/E_Sootopolis_Gym.png" alt="Sootopolis City Gym in Pokemon Emerald">
+
+    <p>I won't put the solutions, but the 2D arrays that represent these puzzles are like so:</p>
+
+<pre><span class="keyword">const</span> firstEmeraldPuzzle = [
+  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],
+];
+
+<span class="keyword">const</span> secondEmeraldPuzzle = [
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,],
+];
+
+<span class="keyword">const</span> thirdEmeraldPuzzle = [
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,],
+  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>,],
+];
+</pre>
+
+    <p>One interesting thing to note is that <code>findSolutions(thirdPuzzle)</code> takes significantly longer than <code>findSolutions(thirdEmeraldPuzzle)</code>, even though it seems like they would be the same "size" of problem. But the additional two stones in the third Emerald puzzle significantly restrained the amount of paths from nearly any point on the board, and thus dramatically reduced runtime.</p>
+
+    <h2>Part 5: Reflect</h2>
+
+    <p>Some may say step 5 is <em>optimize</em>™, but I feel that's premature. The code above is certainly not as optimal as it could be, as <code>findSolutions(thirdPuzzle)</code> can attest, but it works and is (I'd like to think) fairly readable, so there's something to be learned from it regardless.</p>
+
+    <p>If you'd like to see the entirety of the source code, <a href="./sootopolis.js">you can do so here</a>.</p>
+  </article>
+</body>
+</html>

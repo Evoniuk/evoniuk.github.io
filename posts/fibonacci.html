@@ -26,8 +26,8 @@
     <p>The algorithm (given in C) for the <em>n<sup>th</sup></em> fibonacci number is this:</p>
 
 <pre><span class="keyword">int</span> <span class="function">fibonacci</span>(<span class="keyword">int</span> n) {
-  <span class="keyword">if</span> (n == 1 || n == 2) <span class="keyword">return</span> 1;
-  <span class="keyword">return</span> <span class="function">fibonacci</span>(n - 1) + <span class="function">fibonacci</span>(n - 2);
+  <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">1</span>;
+  <span class="keyword">return</span> <span class="function">fibonacci</span>(n - <span class="number">1</span>) + <span class="function">fibonacci</span>(n - <span class="number">2</span>);
 }
 </pre>
 
@@ -54,22 +54,22 @@
 
   <span class="function">printf</span>("<span class="string">%s\n</span>", <span class="function">fib_base_cases</span>(num) ? "<span class="string">true</span>" : "<span class="string">false</span>");
 
-  <span class="keyword">return</span> 0;
+  <span class="keyword">return</span> <span class="number">0</span>;
 }
 
 <span class="keyword">bool</span> <span class="function">fib_base_cases</span>(<span class="keyword">int</span> n) {
-  <span class="keyword">int</span> result = 0;
+  <span class="keyword">int</span> result = <span class="number">0</span>;
   <span class="keyword">int</span> fib = <span class="function">fibonacci</span>(n, &result);
   <span class="keyword">return</span> result == fib;
 }
 
 <span class="keyword">int</span> <span class="function">fibonacci</span>(<span class="keyword">int</span> num, <span class="keyword">int</span> *count) {
-  <span class="keyword">if</span> (num == 1 || num == 2) {
+  <span class="keyword">if</span> (num == <span class="number">1</span> || num == <span class="number">2</span>) {
     (*count)++;
-    <span class="keyword">return</span> 1;
+    <span class="keyword">return</span> <span class="number">1</span>;
   }
 
-  <span class="keyword">return</span> <span class="function">fibonacci</span>(num - 1, count) + <span class="function">fibonacci</span>(num - 2, count);
+  <span class="keyword">return</span> <span class="function">fibonacci</span>(num - <span class="number">1</span>, count) + <span class="function">fibonacci</span>(num - <span class="number">2</span>, count);
 }
 </pre>
 
