@@ -427,7 +427,7 @@ newBoard[place[<span class="number">0</span>]][place[<span class="number">1</spa
 ];
 </pre>
 
-    <p>One interesting thing to note is that <code>findSolutions(thirdPuzzle)</code> takes significantly longer than <code>findSolutions(thirdEmeraldPuzzle)</code>, even though it seems like they would be the same "size" of problem. But the additional two stones in the third Emerald puzzle significantly restrains the amount of paths from nearly any point on the board, and thus dramatically reduces runtime.</p>
+    <p>One interesting thing to note is that <code>findSolutions(thirdPuzzle)</code> takes significantly longer than <code>findSolutions(thirdEmeraldPuzzle)</code>, even though it seems like they would be the same "size" of problem. But the additional two stones in the third Emerald puzzle significantly restrains the amount of paths from nearly any point on the board: <code>findSolutions(thirdEmeraldPuzzle)</code> calls <code>traverse</code> 45,535 times, while <code>findSolutions(thirdPuzzle)</code> calls it 1,988,992 times, just shy of two million. That's an increase by a factor of 44 simply for adding two more viable spots.</p>
 
     <h2>Part 5: Reflect</h2>
 
