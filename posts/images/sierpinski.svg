@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="627" 
+	height="543"
+	viewBox="0 0 1 1">
+
+<defs>
+	<path id="tri1" d="M0,0 L.5,-.866 L1,0 z" fill="solid" stroke-width="0.2"/>
+
+	<g id="tri2">
+		<use xlink:href="#tri1" transform="translate(0,0) scale(.5,.5)"/>
+		<use xlink:href="#tri1" transform="translate(.25,-.433) scale(.5,.5)"/>
+		<use xlink:href="#tri1" transform="translate(.5,0) scale(.5,.5)"/>
+	</g>
+	<g id="tri3">
+		<use xlink:href="#tri2" transform="translate(0,0) scale(.5,.5)"/>
+		<use xlink:href="#tri2" transform="translate(.25,-.433) scale(.5,.5)"/>
+		<use xlink:href="#tri2" transform="translate(.5,0) scale(.5,.5)"/>
+	</g>
+	<g id="tri4">
+		<use xlink:href="#tri3" transform="translate(0,0) scale(.5,.5)"/>
+		<use xlink:href="#tri3" transform="translate(.25,-.433) scale(.5,.5)"/>
+		<use xlink:href="#tri3" transform="translate(.5,0) scale(.5,.5)"/>
+	</g>
+	<g id="tri5">
+		<use xlink:href="#tri4" transform="translate(0,0) scale(.5,.5)"/>
+		<use xlink:href="#tri4" transform="translate(.25,-.433) scale(.5,.5)"/>
+		<use xlink:href="#tri4" transform="translate(.5,0) scale(.5,.5)"/>
+	</g>
+	<g id="tri6">
+		<use xlink:href="#tri5" transform="translate(0,0) scale(.5,.5)"/>
+		<use xlink:href="#tri5" transform="translate(.25,-.433) scale(.5,.5)"/>
+		<use xlink:href="#tri5" transform="translate(.5,0) scale(.5,.5)"/>
+	</g>
+	<g id="tri7">
+		<use xlink:href="#tri6" transform="translate(0,0) scale(.5,.5)"/>
+		<use xlink:href="#tri6" transform="translate(.25,-.433) scale(.5,.5)"/>
+		<use xlink:href="#tri6" transform="translate(.5,0) scale(.5,.5)"/>
+	</g>
+	<g id="tri8">
+		<use xlink:href="#tri7" transform="translate(0,0) scale(.5,.5)"/>
+		<use xlink:href="#tri7" transform="translate(.25,-.433) scale(.5,.5)"/>
+		<use xlink:href="#tri7" transform="translate(.5,0) scale(.5,.5)"/>
+	</g>
+</defs>
+
+<use xlink:href="#tri8" transform="translate(0,.933)" stroke="#000" fill="#888"/>
+
+</svg>

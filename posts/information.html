@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jack Evoniuk">
+
+  <title>Information, Data, and Interpretation</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./styles/normal.css">
+</head>
+<body>
+  <div id="home"><a href="../index.html">Just Some Thoughts</a></div>
+
+  <header>
+    <a href="./sootopolis.html">< Solving Sootopolis City</a>
+    <span id="gap"></span>
+    <!-- <a href="./sorting.html">Stability in Sorting Algorithms ></a> -->
+  </header>
+
+  <h1>Information, Data, and Interpretation</h1>
+
+  <p>There's been an equation on my mind lately, that goes something like this:</p>
+
+  <p class="center"><em>information</em> = <em>data</em> + <em>interpretation</em></p>
+
+  <p>It's a pretty simple idea, but it's one that has helped me organize my thoughts on many occasions and sort through complicated topics more easily.</p>
+
+  <p>This isn't going to be a very focused article, but rather a collection of ideas that have crossed my mind, which I'll attempt to use in order to show the usefulness of the above equation. First though, I should probably define my terms.</p>
+
+  <h2>Defining Terms</h2>
+
+  <p>None of the terms <em>information</em>, <em>data</em>, or <em>interpretation</em> are particularly well-defined, but I'll try to give my general impressions of them.</p>
+
+  <p>By <em>information</em> I mean something that is useful in understanding. It can represent something's nature, as in speed, mass, velocity, file size, location, musical key, etc., or it can be a description of the relationship between things, as in equations like <em>f</em> = <em>ma</em>. Information is fundamentally actionable and interesting.</p>
+
+  <p>By <em>data</em> I mean something that may or may not represent information. So while “the object's mass is 32kg” would be information, “32” by itself would be data. But it might not represent anything: if I smash my keyboard and <em>lakjdsbflksnd</em> comes out, that would be data (under my definition).</p>
+
+  <p>By <em>interpretation</em> I mean a means to tranform data into information. This generally takes the form of an agreed upon association between one kind of data and another, such as ASCII, which provides a means to interpret numbers as letters.</p>
+
+  <p>With that (hopefully) clarified, I will now proceed to ramble on about some instances of where I've used this “equation of information” to aid my understanding of things.</p>
+
+  <h2>The Nature of Computers</h2>
+
+  <p>The most important recognition of the modern era is that numbers can represent almost any type of information. The second most important is recognizing that numbers can be represented by wires being on or off.</p>
+
+  <p>It's often said that computers speak in 1's and 0's, but that isn't really true: it's not 1's and 0's that are on the hardware of computers, its wires (and various other hardware) that are on and off. The association of 1 with on and 0 with off is an <em>interpretation</em>, and the first level in a grand heirarchy of interpretations that make computers so useful. A random wire being on and off is merely data and doesn't signify anything interesting by itself. The fact that we can interpret something being on as 1 and off as 0 allows us to transform this data into binary, another form of data.</p>
+
+  <p>Once we interpret the physical nature of a computer as being a series of binary numbers, we know we can transform that into all sorts of other data, <a target="_blank" href="http://home.hiwaay.net/~paul/bacon/advancement/book6ch1.html">an interpretation already known for hundreds of years</a>.</p>
+
+  <p>And once we have data that we can interpret using numbers, we know that we can use any existing interpretation of numbers for other types of information. We use these various means of interpretation to yield different types.</p>
+
+  <h3>Types in Programming Languages</h3>
+
+  <p>In memory everything is stored as binary (or, more precisely, on and off bits). This data has no awareness of what it is intended to represent, it is simply data waiting to be interpreted. The different ways we interpret data yield different information.</p>
+
+  <p>In the following snippet of C, for example, we are instructing the computer to interpret raw data in two different ways:</p>
+
+<pre>
+<span class="keyword">char</span> data = 80;
+<span class="function">printf</span>("<span class="string">%d\n</span>", data); <span class="comment">// 80</span>
+<span class="function">printf</span>("<span class="string">%c\n</span>", data); <span class="comment">// P</span>
+</pre>
+
+  <p>When we use the <code>%d</code> format specifier, we tell the program to interpret the raw data as a number, which is fairly easy to do given that it is stored in a format (things being on and off) which is essentially binary, the conversion of which to decimal is fairly straightforward (if you consider long division of binary straightforward).</p>
+
+  <p>When, however, we use the <code>%c</code> format specifier we tell the program to interpret the data differently, as being an ASCII code for a character. The ASCII character encoded as 80 is <code>P</code>, so this is what is printed out. This needn't be the only way we interpret the data as a character, however. If we, presumably as a means to atone for our sins, were to use EBCDIC encoding, <code>80</code> would be interpreted as <code>&</code>.</p>
+
+  <p>The different types in a computer language are really various interpretations of what is ultimately binary data. Specifying a parameter of a C function as an <code>int</code> will allow it to know to read 4 (or sometimes 2) bytes in order to interpret the data given to it. Having an <code>unsigned int</code> tells the program to still take 4 bytes, but to interpret the binary number “as usual,”and never as a 2's compliment.</p>
+
+  <p>This is also why specifying the type of a pointer is necessary, as the program needs to know how many bytes to grab upon a dereferencing.</p>
+
+  <p>Another important interpretation of the nature of computers, which focuses more on their functionality, is that they can simulate turing machines.</p>
+
+  <h3>Turing Machines</h3>
+
+  <p>A Turing machine is the classical way we interpret the capabilities of a computer. A Turing machine is an abstract idea that has been been (thesisized? proven isn't the right word) to be able to perform any computable function. As such, if we can find an interpretation of the workings of a computer to be equivalent to that of a turing machine, we know that it has the same capabilities of a Turing machine.</p>
+
+  <p>Showing this for a modern computer is fairly trivial, as computers are incredibly capable devices far exceeding Turing machines, but rather famously <a href="https://en.wikipedia.org/wiki/Rule_110">Rule 110</a> has been shown to be equivalent to Turing machines, and HTML with CSS has been shown to be able to simulate Rule 110, making them (together) capable of arbitrary computations.</p>
+
+  <p>This goes to show a powerful fact of interpretations: if data can be interpreted to represent the same information as another type of data, everything proven about that information can be used for both kinds of data.</p>
+
+  <p>In the cases just mentioned, we have <em>information</em> about Turing machines, and <em>interpretations</em> of <em>data</em> about the physical devices we call computers, Rule 110, and HTML + CSS.</p>
+
+  <p>This also goes to show that what constitutes information in one context can be mere data in another.</p>
+
+  <p>We've talked a lot about computers, and could continue to do so until Ackermann(4, 2) terminates on one, but there's another topic dear to my heart that I want to talk about.</p>
+
+  <h2>Map Projections</h2>
+
+  <p>The Mercator projection really does get a bad rap. Ever since the West Wing episode (S4, ep. 16) where cartographers come in to complain about the Mercator projection everyone thinks they're an expert on the subtle art of projections. The scene itself is much more useful in demonstrating how experts mislead laymen with jargon than actually conveying information about maps. At one point one of the “experts” says that “Germany appears in the middle of the map when it's in the northernmost corner of the earth.” What could that possibly mean? That same expert goes on to say that the Peter's projection has “fidelity of axis,” a similarly meaningless phrase.</p>
+
+  <img src="./images/mercator.JPG" alt="mercator projection">
+  <aside>The Mercator Projection</aside>
+
+  <p>But I don't want to rant about map projections (well, I do, but not here), so let's get back on track.</p>
+
+  <p>The act of projecting the surface of the earth, a sphere, onto a flat surface is that of creating data to be interpreted. We see a map (data) and interpret it as information about the world in which we live. The problem with the Mercator isn't bias or any such nonsense, it's that it distorts area, causing reasonable interpretations to produce inaccurate information.</p>
+
+  <p>The reason for this misrepresentation is that the Mercator is meant to be conformal (angle-preserving), and that comes at the cost of preserving area. In fact, any flat representation of a curved shape will cause distortion of one kind or another, either in angles or area or both, <a target="_blank" href="https://en.wikipedia.org/wiki/Theorema_Egregium">a fact proven by Gauss</a>.</p>
+
+  <p>Given that any map will cause distortion, a fact that frustrates our ability to interpret it well (that is, to produce accurate information), I see two possibilities:</p>
+
+  <h4>1. We can find better interpretations</h4>
+
+  <p>This would constitute teaching people about how projections work.</p>
+
+  <p>Most reasonable people would probably see the above Mercator map and conclude that there is distortion, as Antarctica is surely smaller than all of Eurasia, but young children, the kind of people likely to be surrounded by maps in a classroom, might not do this. In order to get them to interpret the data on the map well we would need to teach them about projections. For the mercator this might mean showing them how it's made.</p>
+
+  <img src="./images/projection.gif" alt="cylindrical projection">
+  <aside>The Method of Cylindrical Projection</aside>
+
+  <p>But that might be difficult and involved. Mercator maps are produced by a cylindrical projection, which is not very difficult conceptually, but it still might be cumbersome to teach, and it would certainly be preferable for the data to be capable of easy interpretation on its own. This leads us to our second possibility.</p>
+
+  <h4>2. We can produce better data</h4>
+
+  <p>It's generally dangerous to use words like 'better' when you're unclear about your goal, so let's clarify what exactly we're looking for: by 'better' data I mean data that is more natural to interpret. By natural, I mean that the naive interpretations are more likely to be correct (that is, produce accurate information).</p>
+
+  <p>The problem with the Mercator projection is that the naive interpretation of the data it presents, that areas are represented well, does not produce accurate information. But we already know that all maps cause distortion, so how do we get around this? I initially thought this to be insurmountable, but then I saw this projection:</p>
+
+  <img src="./images/eckert.jpg" alt="eckert iv projection">
+  <aside>The Eckert IV Projection</aside>
+
+  <p>This is the Eckert IV projection. It is an equal-area projection, meaning that it represents areas accurately, so naive interpretations of the data it presents about area would likely be correct, but it also, I believe, allows for easy interpretation of the angles within, and thus shape of, landmasses.</p>
+
+  <p>It accomplishes this by being curved at the edges. This aspect of the data it presents <em>suggests</em> the interpretation that areas nearer the sides are more distorted, an interpretation that would be correct.</p>
+
+  <p>This is a principle generalizable to all user-facing data: the more the data suggests about how to correctly interpret it the better. The Eckert IV projection above accomplishes this by creating an illusion of curvature where curvature has indeed distorted the image. Compare this to the Gall-Peter's projection, which doesn't do anything to suggest where its distortion comes from:</p>
+
+  <img src="./images/peters.jpg" alt="peters projection">
+  <aside>The Gall-Peter's Projection</aside>
+
+  <p>This is the map advocated in the West Wing episode mentioned earlier, but is even worse than the Mercator in some ways. The Mercator gradually increases its distortion as you near the poles, but the Gall-Peter's, rather oddly, has zero distortion at 45° north and south, the distortion increasing as you go farther away from these latitudes. That is far less obvious than the distortion on the Mercator.</p>
+
+  <p>A perfect illustration (literally) of what I'm getting at is perspective drawing. Perspective drawing is all about suggesting interpretations for the data it presents. It accomplishes this by various methods: vanishing points, shading distant objects, detailing near objects, foreshortening, etc.</p>
+
+  <img src="./images/perspective.jpg" alt="2-point perspective drawing">
+  <aside>A 2-Point Perspective Drawing</aside>
+
+  <p>All these effects combine to make the data (something two dimensional) easy to interpret, to make naive interpretations more likely to produce accurate information (about something three dimensional).</p>
+
+  <p>Making good data for humans requires all parts of <em>information</em> = <em>data</em> + <em>interpretation</em> to be working together.</p>
+
+  <h2>Extending Interpretations</h2>
+
+  <p>I want to conclude with a less obvious but very powerful concept, that of extending interpretations. This is a technique used frequently in mathematics and is endlessly interesting and quite fun. Before that, however, I'll talk about when not to extend interpretations.</p>
+
+  <h3>Meaningless Interpretations</h3>
+
+  <p>As a simple example, we might consider a case where we have a scatterplot representing two pieces of information about various houses: square footage, and price. In this example, the plot is the data. Our interpretation of this data is that the <em>x</em> coordinate is the square footage and the <em>y</em> coordinate the price.</p>
+
+  <img src="./images/scatterplot.png" alt="scatterplot">
+
+  <p>Here, our sample of houses is represented as points on a plane. A natural question to ask about a pair of points on a plane is what the distance between them is. So what if we were to do that here? It would be easy enough to plug in the coordinates of the two points and calculate it, but what would it <em>mean</em>?</p>
+
+  <p>It would mean nothing. One clue that it would mean nothing is that it would not have coherent units. If, for example, we were to consider the points (2, 7) and (5, 3), we could naively obtain the distance as being 5, but if we were to include units in the calculation we would see that it wouldn't make sense:</p>
+
+  <p class="center"><em>d</em><sup>2</sup> = (5 <em>ft</em><sup>2</sup> - 2 <em>ft</em><sup>2</sup>)<sup>2</sup> + ($3 - $7)<sup>2</sup> = 9 <em>ft</em><sup>4</sup> + 16 $<sup>2</sup></p>
+
+  <p>Not only do our constituent units make no sense (<em>ft</em><sup>4</sup> can kinda make sense in higher-dimensional geometry, but I don't know what square dollars could possibly mean), but we have no way to add these units.</p>
+
+  <p>This is a case where an attempted extension of our interpretation of our data completely failed. But there are cases where you can extend interpretations of data, and I'd like to present two of them.</p>
+
+  <h3>Exponents</h3>
+
+  <p>A child's first introduction to exponents will treat them as repeated multiplication. So</p>
+
+  <p class="center"><em>x</em><sup>3</sup> = <em>x</em> · <em>x</em> · <em>x</em></p>
+
+  <p>But our ability to take the information “<em>x</em> multiplied by itself <em>n</em> times” and represent that as the data <em>x<sup>n</sup></em> suggests that we might be able to have <em>n</em> be <em>any</em> number. Yet again we're in the dangerous territory of taking a representation of information, data, and trying to augment the way we interpret that data based on the form the representation takes. But this is (obviously) a case where this is possible.</p>
+
+  <p>The way we accomplish this is by examining the properties of our information.</p>
+
+  <p>The most basic property exponents is that <em>x<sup>a</sup></em> · <em>x<sup>b</sup></em> = <em>x</em><sup><em>a</em> + <em>b</em></sup>. From this we can conclude that <em>x<sup>a</sup></em> · <em>x<sup>0</sup></em> = <em>x</em><sup><em>a</em> + 0</sup> = <em>x</em><sup><em>a</em></sup>. If we divide both sides by <em>x<sup>a</sup></em>, we get that <em>x<sup>0</sup></em> = 1. This allows us to extend our interpretation of exponentiation, something previously sensible only for positive integers, into the non-negative integers.</p>
+
+  <p>Using this fact, we can extend our interpretation to negative numbers:</p>
+
+  <p class="center"><em>x<sup><em>a</em></sup></em> · <em>x<sup>-<em>a</em></sup></em> =  <em>x<sup><em>a</em> - <em>a</em></sup></em> = <em>x</em><sup>0</sup> = 1</p>
+
+  <p>We again divide both sides by <em>x<sup>a</sup></em> to get that <em>x</em><sup>-<em>a</em></sup> = 1/<em>x<sup>a</sup></em>.</p>
+
+  <p>This allows us to interpret exponentiation for any integer. We can do similar derivations for fractions, but I'll leave that as an exercise for the reader if so inclined.</p>
+
+  <p>Many students are taught the mechanics of exponents and how to manipulate them in equations, but most aren't taught the justification of why we interpret them the way we do. I would suspect this is at least partly because many teachers don't know. I will yet again resist my temptation to descend into a rant, but the way we teach math is absolutely awful if we want to foster actual understanding and conceptual maturity.</p>
+
+  <p>Anyway, let's go on to an even more surprising generalization of an interpretation.</p>
+
+  <h3>Fractional Dimensions</h3>
+
+  <p>We all have a very good command over interpreting information about dimensions less than four. Zero dimensional objects can only be points, one dimensional objects exist on a line, two dimensional objects exist on planes, and three dimensional objects (including you and I) exist within a volume.</p>
+
+  <p>Talk about higher dimensions is generally obnoxious and deliberately obfuscatory, so we'll skip over that. What's of interest for us is fractional dimensions.</p>
+
+  <p>In order to extend our interpretation of dimensions, we first have to be very clear about what our current interpretation is. How exactly are we interpreting the data “an object is <em>n</em> dimensional”? The danger of intuitive concepts is that they go left unexamined.</p>
+
+  <p>One conceptualization of dimension, the one taught in every linear algebra course, is that it is the the number of vectors required for a basis. This is a very useful definition in certain circumstances, but won't be useful for ours.</p>
+
+  <p>The definition we will use will be a generalization of <a href="https://en.wikipedia.org/wiki/Square–cube_law">the square-cube law</a>. For those that don't recall, the square-cube law states that the 2-dimensional parts of an object are directly proportional to the square of the 1-dimensional parts. For example, if we take a circle and multiply its radius (a 1-dimensional part) by 3, we multiply its area (a 2-dimensional part) by 3<sup>2</sup>. Similarly, 3-dimensional parts of shapes are directly proportional to the cube of 1-dimensional parts. So if we multiply the radius of a sphere by <em>x</em> we multiply its volume by <em>x</em><sup>3</sup>.</p>
+
+  <p>This leads to a general definition of dimension for any given shape. There's a bit more math involved (<a href="http://www.math.ubc.ca/~cass/courses/m308-03b/projects-03b/skinner/dimension.htm">a great explanation can be found here</a>), but we can generalize the square-cube law like so:</p>
+
+  <p class="center"><em>P</em> = <em>S<sup>d</sup></em></p>
+
+  <p>Where <em>d</em> is the dimension, <em>P</em> is size (technically the number of self-similar pieces, see above link), and <em>S</em> is the scaling factor. This would mean that</p>
+
+  <p class="center"><em>d</em> = log(<em>P</em>) / log(<em>S</em>)</p>
+
+  <p>This actually isn't so much a generalization of our interpretation as a clarification of it, but its effects will very much seem like a generalization once you see that it can be used to assign fractional dimensions to certain objects, something previously nonsensical. And this happens all the time, where a formalization of something intuitive opens up new insights. One mathematician noted that</p>
+
+  <blockquote>
+    We shall find that by analyzing our ordinary mathematical notions we acquire fresh insight, new powers, and the means of reaching whole new mathematical subjects by adopting fresh lines of advance after our backward journey.
+  </blockquote>
+  <aside>Bertrand Russell, <em>An Introduction to Mathematical Philosophy</em></aside>
+
+  <p>In this case, our analyzation of what we mean by dimension allows us the new power of assigning fractional dimensions to objects, as well will now see.</p>
+
+  <h4>Fractals and Their Dimensions</h4>
+
+  <p>The types of objects that have fractional dimensions are, appropriately, called fractals. You probably know fractals as shapes that are infinitely self-similar, but generally they are any shape with a fractional dimension (the dimension being defined as the Hausdorff dimension, not exactly the same as our definition but close enough).</p>
+
+  <p>Fractals do not scale according to the square-cube law, but do adhere to our above definition of dimension above. We won't go through the derivations (some are surprisingly not so terrible, but all require calculus), but we will see some examples (in order of dimension):</p>
+
+  <img src="./images/Smith-Volterra-Cantor-set.svg" alt="Smith-Volterra-Cantor Set">
+  <aside>Smith-Volterra-Cantor Set, <em>d</em> = 1</aside>
+
+  <p>This image depicts successive iterations of making the fractal, rather than the fractal itself. It goes to show that dimensions needn't be fractions, they only need their “normal” (topological) dimension not to equal their Hausdorff (I'm sorry but math is really technical and I didn't want to get too into the weeds). This fractal is formed by removing pieces of a specified length from the middle of each line segment, the fractal being formed once you've done that for an infinite amount of time.</p>
+
+  <img src="./images/sierpinski.svg" alt="sierpinski fractal">
+  <aside>Sierpinski Triangle, <em>d</em> = log<sub>2</sub>(3)</aside>
+
+  <p>This is perhaps the most well known of all fractals, perhaps due to the ease with which it can be created, or perhaps due to its cool name.</p>
+
+  <img src="./images/golden-dragon.png" alt="golden dragon fractal">
+  <aside>Golden Dragon Fractal, <em>d</em> = ϕ, the Golden Ratio</aside>
+
+  <p>The Golden Dragon fractal derives its name from its dimension.</p>
+
+  <img src="./images/Ikeda-map-attractor.jpg" alt="Ikeda map attractor">
+  <aside>Ikeda Map Attractor, <em>d</em> = 1.7</aside>
+
+  <p>This one's neat 'cause it's curvy.</p>
+
+  <p>All these examples and more can be found on <a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">the Wikipedia page on the subject</a>.</p>
+
+  <h2>Conclusions</h2>
+
+  <p>I hope a general impression of an idea came through in all that. If not send me an angry smoke signal. If so, send me a happy smoke signal. Either way, what I was attempting to get across is the power of the simple idea that</p>
+
+  <p class="center"><em>information</em> = <em>data</em> + <em>interpretation</em></p>
+
+  <p>We went through how types in computers are various interpretations of the same kind of data (binary), how good maps and drawings (and good data in general) suggest appropriate interpretations, and how we can generalize our interpretations to produce information about data that might have been considered nonsensical.</p>
+
+  <p>But if you only take away one thing from this discussion, it should be that the map scene from The West Wing is trash.</p>
+</body>
+</html>

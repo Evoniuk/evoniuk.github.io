@@ -123,11 +123,16 @@ hr {
 
 img {
   display: block;
-  margin: auto;
+  margin: 5px auto;
+  max-width: 100%;
 }
 
 h4 {
   border-bottom: 1px solid #ddd;
   padding-bottom: 5px;
+}
+
+.center {
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */
