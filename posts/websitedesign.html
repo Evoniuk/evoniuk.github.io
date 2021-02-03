@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jack Evoniuk">
+
+  <title>Professors Make The Worst Best Websites</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./styles/normal.css">
+
+  <style>
+    img {box-shadow: 3px 3px 5px 6px #ddd}
+  </style>
+</head>
+<body>
+  <div id="home"><a href="../index.html">Just Some Thoughts</a></div>
+
+  <header>
+    <a href="./algorithms.html">< <em>What Algorithms Want</em> is a Bad Book</a>
+    <span id="gap"></span>
+  </header>
+
+  <h1>Professors Make The Worst Best Websites</h1>
+
+  <p>I have a guilty pleasure of visiting websites of professors. Their, um... minimal design brings me back to when I first went online in the early 2000s. Their aesthetic, or lack thereof, inspires nostalgia, but at the same time, is, well, really bad. Text going to the edge of the screen, Times New Roman, microscopic line height, pure blue links... it's a sight to behold. But because of this the sites have instantaneous loading times, and free up the professor to make some amazing content.</p>
+
+  <p>Just for fun though, I want to go over a few simple CSS declarations that would modernize these sites without compromising their overall simplicity.</p>
+
+  <p>We'll look at three examples:</p>
+
+  <h4>Example 1: Arnold Neumaier</h4>
+
+  <p>Arnold Neumaier is a math professor at the University of Vienna. He's written a ton on math, physics, computers, and the philosophy of those things. None of that's relevant here though, <a href="https://www.mat.univie.ac.at/~neum/" target="blank">'cause look at this website</a>:</p>
+
+  <img src="./images/arnold1.png" alt="website of Arnold Neumaier">
+
+  <p>How are we supposed to concentrate on the content with that form factor?</p>
+
+  <p>First, the positives. The background is white. Not the only choice, but a great one. So many websites have egregious colors or repeating patterns that are only distracting, but it's pretty much impossible to go wrong with default white. Another great thing about this site is the color of the links, which instead of the default <span style="background-color: #0000ff; color: white; padding: 2px;">#0000FF</span> is a nice relaxing <span style="background-color: #0078B4; color: white; padding: 2px;">#0078B4</span>. This is pretty rare in the world of professor websites, so props are certainly in order. Unfortunately, not everything about the default styles are fixed.</p>
+
+  <p>The most immediately obvious problem is that the text goes all the way to the edge of the screen. The problem with this is that people aren't used to reading such wide paragraphs, so when their eye has to go to the next line they often lose their place. Ideally the width of a paragraph on the screen would be about the size you'd see in a book. That's the width most people are used to, and it's a time-tested choice.</p>
+
+  <p>This can be fixed with just two lines of CSS:</p>
+
+<pre>
+<span class="keyword">body</span> {
+  <span class="keyword">max-width</span>: <span class="number">50</span><span class="keyword">rem</span>;
+  <span class="keyword">margin</span>: <span class="keyword">auto</span>;
+}
+</pre>
+
+  <p>The first declaration makes the width of the body fixed to 50 times the size of the root element's font size. Given that this font size is typically 16 pixels, this means that in this case we're setting the width of the body to 800 pixels. Other widths also work though; anything between 30 and 60 rem can work depending on what you're going for. This blog uses 40 rem.</p>
+
+  <p>The second declaration of <code>margin: auto</code> makes the body centered in the middle of the screen.</p>
+
+  <p>After applying these changes, we get the following:</p>
+
+  <img src="./images/arnold2.png" alt="website of Arnold Neumaier with fixed body width">
+
+  <p>From here there's only one more change to be made, and that's fixing the line height. Line height is the gap between lines of text, and makes a surprising impact on the look of a site. Unlike the width of a body of text, where it should usually be around that of a book, websites look best when the line height is quite a bit more than that of a book.</p>
+
+  <p>To implement this, we need just a single declaration of CSS:</p>
+
+<pre>
+  <span class="keyword">body</span> {
+    <span class="keyword">line-height</span>: <span class="number">1.5</span>;
+  }
+</pre>
+
+  <p>This makes the line height 1.5 times that of the default, resulting in the following:</p>
+
+  <img src="./images/arnold3.png" alt="website of Arnold Neumaier with fixed line height">
+
+  <p>And that's it. Of course, there's no end to all the different styling you could do, but these three declarations of CSS I think are more than sufficient to drastically improve the quality of this site and many others like it. As evidence of that, let's look at our second example.</p>
+
+  <h4>Example 2: John Baez</h4>
+
+  <p>John Baez is a mathematical physicist at UC Riverside, <a href="https://math.ucr.edu/home/baez/README.html" target="blank">and has this as his personal site</a>:</p>
+
+  <img src="./images/john1.png" alt="website of John Baez">
+
+  <p>Many of the same problems as the last site, so let's apply the exact same CSS declarations:</p>
+
+<pre>
+<span class="keyword">body</span> {
+  <span class="keyword">max-width</span>: <span class="number">50</span><span class="keyword">rem</span>;
+  <span class="keyword">margin</span>: <span class="keyword">auto</span>;
+  <span class="keyword">line-height</span>: <span class="number">1.5</span>;
+}
+</pre>
+
+  <p>Doing this yields a much improved site:</p>
+
+  <img src="./images/john2.png" alt="website of John Baez with improvements">
+
+  <p>However, this site, unlike the last, commits the cardinal sin of leaving the default link color. We can change that to the color Arnold Neumaier used with the following code:</p>
+<pre>
+<span class="keyword">a</span> {
+  <span class="keyword">color</span>: #<span class="number">0078B4</span>;
+}
+</pre>
+
+  <p>Which results in the following site:</p>
+
+  <img src="./images/john3.png" alt="website of John Baez with better link color">
+
+  <p>But links don't have to be blue. The rest of Baez's site makes use of a particular shade of purple (<span style="background-color:#7475ff; color: white; padding: 2px;">#7475FF</span>), so we can use that to give the site more of its own identity:</p>
+
+  <img src="./images/john4.png" alt="website of John Baez with best link color">
+
+  <p>And I think we can call it good. This is now a highly readable and good looking site, fixed with just four declarations.</p>
+
+  <p>Finally, we'll look at one last example.</p>
+
+  <h4>Example 3: Bjarne Stroustrup</h4>
+
+  <p>A man who needs no introduction, <a href="https://www.stroustrup.com" target="blank">the inventor of C++ has a pretty bad website</a>:</p>
+
+  <img src="./images/bjarne1.png" alt="website of Bjarne Stroustrup">
+
+  <p>This commits many of the indecencies we've seen in the previous sites, so we'll clean it up in the same way. The only additional change we'll make is to give a white background. The current color certainly isn't the worst I've seen, but good ol' fashioned white never goes wrong. Our CSS will be</p>
+
+<pre>
+<span class="keyword">body</span> {
+  <span class="keyword">max-width</span>: <span class="number">50</span><span class="keyword">rem</span>;
+  <span class="keyword">margin</span>: <span class="keyword">auto</span>;
+  <span class="keyword">line-height</span>: <span class="number">1.5</span>;
+  <span class="keyword">background</span>: <span class="keyword">white</span>;
+}
+
+<span class="keyword">a</span> {
+  <span class="keyword">color</span>: #<span class="number">0078B4</span>;
+}
+</pre>
+
+  <p>but in addition to this, we'll also remove the image. Everyone visiting the site will already know Stroustrup's striking gaze, so it doesn't provide much information for the average viewer. Leaving it up is certainly fine, but to really make it look good we'd probably want it off to the left with text to its right, so that it doesn't create all of that white space (white space is often a very good thing, but in this case it makes things look unbalanced). It wouldn't take much CSS, but this all about doing the least possible, and removing an image is certainly doing very little.</p>
+
+  <p>Making these changes grants us this beauty:</p>
+
+  <img src="./images/bjarne2.png" alt="improved website of Bjarne Stroustrup">
+
+  <p>So if you're a professor making a website, think about implementing the above changes. White background, a thinner and centered body, increased line height, better color links. That's often enough to make a site that makes people reminisce about the early days of the web into a modern site where the focus is the content.</p>
+</body>
+</html>
