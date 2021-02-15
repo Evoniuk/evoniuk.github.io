@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Implementing the Pop Command</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./styles/normal.css">
+</head>
+<body>
+  <div id="home"><a href="../index.html">Just Some Thoughts</a></div>
+
+  <header>
+    <a href="./choplifter.html">< Don't Trust Everything You Read</a>
+    <span id="gap"></span>
+    <!-- <a href="./nand.html">Implementing the Pop Command ></a> -->
+  </header>
+
+  <h1>Implementing the Pop Command</h1>
+
+  <p>In the <a href="https://www.nand2tetris.org">Nand to Tetris</a> course you have to do many things. It's quite a fun course. In project 8 you implement a compiler from VM code to assembly code. Most of the compiler is straightforward, but there's one part that requires a clever trick, one sufficiently interesting to make me want to write about it.</p>
+
+  <h2>The Premise</h2>
+
+  <p>There are two parts to this puzzle: the assembly language, and the architecture on which it operates. We'll define each in turn before going into what the actual challenge is.</p>
+
+  <h3>The Architecture</h3>
+
+  <p>The architecture used in Nand to Tetris is incredibly simple, as you'd expect from something designed for teaching purposes. We won't go into too much detail, as most of it isn't relevant here; all you need to know is that The CPU consists of two registers, named A and D (for <em>address</em> and <em>data</em>), and then off to the side there's the main memory. Pretty simple.</p>
+
+  <h3>The Assembly Language</h3>
+
+  <p>In the assembly language <code>D</code> refers to the data in the D register and <code>A</code> refers to the data in the A register. In addition, <code>M</code> refers to the data being stored in the main memory at the address stored in A (hence the name A, it's an address in the main memory).</p>
+
+  <p>On top of this, there are also segments in the main memory which are specially allocated for certain purposes. In order to access these there are special commands that set the A register equal to the address of the area in memory where the base addresses for these regions are stored. <code>A</code> becomes a pointer to a pointer. For our purposes here we'll just use one of the several segments, called <code>LCL</code>, the <em>local</em> segment. The special command to access this region is <code>@LCL</code>. What this does is set the A register equal to the address in memory where the address of the base of the LCL segment is stored. The A register points to the LCL pointer.</p>
+
+  <p>The <code>@</code> commands can also be used to set A equal to arbitrary values, as in <code>@21</code> sets the A register equal to 21. All the values in this architecture are 16 bit integers, so all the addresses are also just integers. <code>@LCL</code> is actually just a code for <code>@1</code>, <code>1</code> being the address of the pointer to the base of the local register.</p>
+
+  <p>A very special segment is the stack, which we access with the command <code>@SP</code>, SP meaning <em>stack pointer</em>. Like most stack implementations the pointer points at the next unused piece of memory, so <code>@SP</code> doesn't make A point at the pointer to the base of the stack, but rather upon the invocation of <code>@SP</code> A points at the pointer that points just above the top of the stack.</p>
+
+  <p>So that's one command. <code>@</code> followed by a segment makes the A register store the address of the address of the base of the segment, and <code>@</code> followed by a number sets A equal to that number. The only other type of command is a computation command.</p>
+
+  <p>The computation commands are of the form <code>destination = computation; jump</code>. We won't need the jump part of this command (it's optional anyway), so we'll just look at the <code>destination</code> and <code>computation</code> parts. The destination can be <code>A</code>, <code>M</code>, <code>D</code>, or any combination thereof, like <code>MD</code> or <code>AMD</code>. The <code>computation</code> can be things like <code>A + D</code> or <code>M - 1</code> or simply <code>0</code>. In the compuation you can use the numbers <code>1</code> or <code>0</code>, the "variables" <code>A</code>, <code>M</code>, or <code>D</code>, and the operations <code>+</code>, <code>-</code>, <code>!</code> (bitwise not), <code>&</code> (bitwise and), and <code>|</code> (bitwise or).</p>
+
+  <p>That's all a lot of information, so here's an example. The push command pushes the value from a given segment onto the stack. This is how to implement pushing the value stored in <code>LCL[16]</code>:</p>
+
+<pre>
+<span class="keyword">@LCL</span>        <span class="comment">// A = address of the address of the LCL segment</span>
+<span class="number">D = M</span>       <span class="comment">// D = address of the LCL segment</span>
+<span class="keyword">@16</span>         <span class="comment">// A = 16</span>
+<span class="number">A = D + A</span>   <span class="comment">// A = address of LCL + 16 = LCL[16]</span>
+<span class="number">D = M</span>       <span class="comment">// D = data in LCL[16]</span>
+<span class="keyword">@SP</span>         <span class="comment">// A = address of the address of the top of the stack</span>
+<span class="number">A = M</span>       <span class="comment">// A = address of the top of the stack</span>
+<span class="number">M = D</span>       <span class="comment">// top of the stack = D = data in LCL[16]</span>
+<span class="keyword">@SP</span>         <span class="comment">// this line and the next increment the stack pointer</span>
+<span class="number">M = M + 1</span>
+</pre>
+
+  <p>Hopefully with the comments that makes sense. It can be tough in this language to distinguish whether you're looking at the data you want or a pointer to that data (or a pointer to a pointer to that data). If the above code makes sense, then you're ready to tackle the real puzzle. If not, try going back through line by line, or just give up, whatever floats your boat.</p>
+
+  <h2>The Challenge of Pop</h2>
+
+  <p>We saw above that the push command wasn't so bad. I mean, it took quite a few lines, but this is an assembly language, what're you gonna do? We might assume pop would be a similar level of complexity, but it turns out to be a bit more difficult (it actually ends up being only three more lines than push, but it's conceptually quite trickier).</p>
+
+  <p>Where the push command takes data from a given segment and pushes it on the stack, the pop command takes data from the top of the stack and loads it onto somewhere in a given memory segment.</p>
+
+  <p>The problem is that with push, we can get the address of the data we want, put the data in D, then just use the A register to look up the stack pointer, set <code>M = D</code>, and then increment the stack pointer. With pop, think about the general steps we want to do. We might think we would want to</p>
+
+  <ol>
+    <li>decrement the stack pointer</li>
+    <li>take the data in the stack and store it in D</li>
+    <li>get the address of the segment where we wish it to be stored</li>
+    <li>move the data from D to its final resting place</li>
+  </ol>
+
+  <p>The problem comes between steps 2 and 3. While D stores the data, we can only set A equal to a pointer to the pointer to the <em>base</em> of a segment <em>or</em> an offset. What we need is to simultaneously store the data, the pointer to the pointer, and the offset. This wouldn't be too bad if we could arbitrarily set the D register to a value, but we can't. The <code>@</code> commands can only be used to set the A register to given values. The D register can only be set to some computation involving <code>A</code>, <code>M</code>, <code>D</code>, <code>1</code>, or <code>0</code>.</p>
+
+  <p>We could try finding some part of memory to store the temporary data, but then we end up back where we started, trying to juggle the address of <em>that</em> memory. No, we need to store multiple pieces of information on a single register.</p>
+
+  <p>To get your mind in the right mood, consider this C function for swapping two integers without using a temporary variable:</p>
+
+<pre>
+<span class="keyword">void</span> <span class="function">swap</span>(<span class="keyword">int</span>* x, <span class="keyword">int</span>* y) {
+  *x = *x + *y;
+  *y = *x - *y;
+  *x = *x - *y;
+}
+</pre>
+
+  <p>Now, this code runs the risk of overflow, and in practice you'd want to use an xor, and in real practice you'd just write it with a temp variable and trust the compiler to do the optimization, but the <em>idea</em> of this code is what we'll be using. The idea that we can use a variable to hold two pieces of information at once, and then access each piece of information by using the proper operation.</p>
+
+  <p>Regardless, we can still do the first two proposed steps of decrementing the stack pointer and loading the data into D fairly easily. That code looks like this:</p>
+
+<pre>
+<span class="keyword">@SP</span>         <span class="comment">// access stack pointer</span>
+<span class="number">M = M - 1</span>   <span class="comment">// decrement stack pointer</span>
+<span class="number">A = M</span>       <span class="comment">// A points to the top of the stack</span>
+<span class="number">D = M</span>       <span class="comment">// D = value at top of stack (pop value)</span>
+</pre>
+
+  <p>Going from here is where it gets a little tricky. To get going we might try the trick from that C code. We'll add the address where we want to pop to to the D register:</p>
+
+<pre>
+<span class="keyword">@LCL</span>
+<span class="number">D = D + M</span>   <span class="comment">// D = pop value + base address of LCL</span>
+<span class="keyword">@16</span>
+<span class="number">D = D + A</span>   <span class="comment">// D = pop value + address of LCL[16]</span>
+</pre>
+
+  <p>Now we're getting somewhere. Is it where we want to go? Only time will tell.</p>
+
+  <p>What we want now is for the A register to have the address of <code>LCL[16]</code> so that we can move the data into memory at that location. What we'd normally do is set it equal to 16, store 16 in D, then set A to LCL and add the value in D (which would be 16) to A. The problem with doing that now is that we'd disturb the data in D, which we can't afford to do. What we're going to do instead is set A equal not to the address we're popping to, but rather the data to be popped:</p>
+
+<pre>
+<span class="keyword">@SP</span>         <span class="comment">// A = address of stack pointer</span>
+<span class="number">A = M</span>       <span class="comment">// A = stack pointer</span>
+<span class="number">A = M</span>       <span class="comment">// A = pop value</span>
+</pre>
+
+  <p>We do this because it allows us to set A to the proper address by using the data in D:</p>
+
+<pre>
+<span class="number">A = D - A</span>   <span class="comment">// A = pop value + address of LCL[16] - pop value</span>
+</pre>
+
+  <p>At this point A equals the proper address and D equals the sum of that address and the data we want to enter at that address. We're almost there. All we want is for the place in memory where A points to to equal the data. We can't just do <code>M = D</code>, because then the place in memory would be the aforementioned sum. What we want is that sum minus the part we don't want. And what we don't want is the address, which is stored in A. So we want something like this:</p>
+
+<pre>
+<span class="number">M = D - A</span>   <span class="comment">// M = pop value</span>
+</pre>
+
+  <p>Which is our solution! It's almost amazing how everything just fits together perfectly on this line. The A register is simultaneously controlling where <code>M</code> references and enabling us to get the right data from <code>D</code>, and <code>D</code>, in turn, is what allowed us in the previous line to load the proper address into <code>A</code>. It's all beautifully self-referential.</p>
+
+  <p>All together it looks like this:</p>
+
+<pre>
+<span class="keyword">@SP</span>
+<span class="number">M = M - 1</span>
+<span class="number">A = M</span>
+<span class="number">D = M</span>       <span class="comment">// D = pop value</span>
+<span class="keyword">@LCL</span>
+<span class="number">D = D + M</span>   <span class="comment">// D = pop value + base memory address</span>
+<span class="keyword">@16</span>
+<span class="number">D = D + A</span>   <span class="comment">// D = pop value + address to pop to</span>
+<span class="keyword">@SP</span>
+<span class="number">A = M</span>
+<span class="number">A = M</span>       <span class="comment">// A = pop value</span>
+<span class="number">A = D - A</span>   <span class="comment">// A = address to pop to</span>
+<span class="number">M = D - A</span>   <span class="comment">// M = pop value</span>
+</pre>
+
+  <p>And that's how we implement the pop command.</p>
+</body>
+</html>
