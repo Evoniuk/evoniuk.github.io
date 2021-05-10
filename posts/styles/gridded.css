@@ -27,6 +27,10 @@ aside {
   font-style: italic;
 }
 
+aside cite {
+  font-style: normal;
+}
+
 aside code {
   font-size: smaller;
   font-style: normal;
@@ -45,4 +49,10 @@ aside code {
   @media(max-width: 50rem) {
     article {grid-template-columns: 0 1fr 0}
   }
+}
+
+blockquote {
+  font-size: smaller;
+  border-left: 6px solid #eee;
+  padding-left: 6px;
 }

@@ -30,7 +30,7 @@ $objectColor: goldenrod;
 
 body {
   font-family: 'Computer Modern', serif;
-  padding: 5px;
+  padding: 0;
   color: $textColor;
   background-color: $background;
 }
@@ -48,30 +48,12 @@ body {
 #home a {color: $textColor}
 #home a:hover {border-bottom: none}
 
-header a:hover {
-  border-bottom: none;
-  color: $accent;
-}
-
-header {
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  padding: 3px;
-  border-bottom: 1px solid $textColor;
-}
-
-#gap {min-width: 15px}
-
 // links
 
 a {
   text-decoration: none;
   color: $accent;
-  &:hover {
-    color: $textColor;
-    border-bottom: 1px solid $accent;
-  }
+  &:hover {border-bottom: 1px solid $accent}
 }
 
 // code
@@ -102,7 +84,10 @@ pre {
 
 // other
 
-hr {border: .5px solid $textColor}
+hr {
+  border: none;
+  border-top: 1px solid $textColor;
+}
 
 img {
   display: block;
@@ -116,3 +101,12 @@ h4 {
 }
 
 .center {text-align: center}
+
+table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+tr {
+  border-bottom: 1px solid $textColor;
+}
