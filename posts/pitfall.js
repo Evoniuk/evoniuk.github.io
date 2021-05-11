@@ -6,7 +6,7 @@ function listAllRooms() {
     rooms.push(incrementLFSR(rooms[rooms.length - 1]));
 
   for (let i = 0; i < rooms.length; i++)
-    console.log(i + 1, bits, numToBinary(rooms[i]));
+    console.log(i + 1, numToBinary(rooms[i]));
 }
 
 function verifyLFSRs() {
