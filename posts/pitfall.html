@@ -62,8 +62,10 @@
 
     <p>First, a room may contain a treasure (the case if bits 3 to 5 are 101). If it does contain a treasure, then the usual item determined by the bits does not appear and the corresponding treasure is put in its place.</p>
 
-    <p>Second, if there are crocodiles (the case if bits 3 to 5 are 100) then no objects will spawn. Additionally, bits 0 to 2 being 010, 011, 110 or 111 cause there to be a vine that allows the player to swing over the crocs. Otherwise there will be no vine, forcing the player to jump on the heads of the crocodiles to get across. The rules for items and treasures are</p>
+    <p>Second, if there are crocodiles (the case if bits 3 to 5 are 100) then no objects will spawn. Additionally, bits 0 to 2 being 010, 011, 110 or 111 cause there to be a vine that allows the player to swing over the crocs. Otherwise there will be no vine, forcing the player to jump on the heads of the crocodiles to get across.</p>
     <aside>I always write the high bit first, so '100' would more accurately be called bits 5 to 3.</aside>
+
+    <p>The rules for items and treasures are</p>
 
     <table>
       <tr><td><strong>Bits</strong></td><td><strong>Item</strong></td><td><strong>Treasure</strong></td></tr>
@@ -86,7 +88,7 @@
     <table>
       <tr><td><strong>Bits</strong></td><td><strong>Pit Type</strong></td></tr>
       <tr><td>000</td><td>one hole in the ground</td></tr>
-      <tr><td>001</td><td>one or three holes in the ground</td></tr>
+      <tr><td>001</td><td>three holes in the ground</td></tr>
       <tr><td>010</td><td>zero holes in the ground</td></tr>
       <tr><td>011</td><td>zero holes in the ground</td></tr>
       <tr><td>100</td><td>crocodiles in the water</td></tr>
