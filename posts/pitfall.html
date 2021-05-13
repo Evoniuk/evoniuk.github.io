@@ -34,8 +34,8 @@
     <img src="./images/pitfall.jpeg" alt="screenshot of Pitfall!">
     <aside>A typical screen in <cite>Pitfall!</cite></aside>
 
-    <p>But in order to fully appreciate the difficulty of such a feat let's note the difficulties faced by programmers for the Atari. The console itself had only 128 bytes of RAM. That's 1024 bits. For comparison, this sentence alone takes up more space if encoded in ASCII, let alone the UTF format in which it's actually encoded*. Suffice it to say there was not much space on the Atari.</p>
-    <aside>*Reddit user <cite>knome</cite> pointed out the size of this sentence in ASCII and UTF 8 are actually the same. But you get the idea.</aside>
+    <p>But in order to fully appreciate the difficulty of such a feat let's note the difficulties faced by programmers for the Atari. The console itself had only 128 bytes of RAM. That's 1024 bits. For comparison, this sentence alone takes up more space if encoded in ASCII, let alone the UTF format in which it’s actually encoded*. Suffice it to say there was not much space on the Atari.</p>
+    <aside>*Reddit user <cite>knome</cite> and Hacker News user <cite>nwellnhof</cite> pointed out the size of this sentence in ASCII and UTF 8 were actually the same, so I changed an ASCII apostrophe for U+2019.</aside>
 
     <p>But that's no matter, surely the cartidge itself offers sufficient space, right? Well, sort of. Atari 2600 cartidges at this point generally had 4 kilobytes of ROM, the vast majority of which had to be dedicated to the actual code. If we ignore the need to store code, we could dedicate 16 bytes per room, but of course we can't just ignore the space needed to store the code.</p>
     <aside>The addressable space for the Atari 2600 is actually only 2K. 4K was made possible by a technique called bank switching.</aside>
@@ -62,7 +62,7 @@
 
     <p>First, a room may contain a treasure (the case if bits 3 to 5 are 101). If it does contain a treasure, then the usual item determined by the bits does not appear and the corresponding treasure is put in its place.</p>
 
-    <p>Second, if there are crocodiles (the case if bits 3 to 5 are 100) then bits 0 to 2 being 010, 011, 110 or 111 cause there to be a vine that allows the player to swing over the crocs. Otherwise there will be no vine, forcing the player to jump on the heads of the crocodiles to get across. The rules for items and treasures are</p>
+    <p>Second, if there are crocodiles (the case if bits 3 to 5 are 100) then no objects will spawn. Additionally, bits 0 to 2 being 010, 011, 110 or 111 cause there to be a vine that allows the player to swing over the crocs. Otherwise there will be no vine, forcing the player to jump on the heads of the crocodiles to get across. The rules for items and treasures are</p>
     <aside>I always write the high bit first, so '100' would more accurately be called bits 5 to 3.</aside>
 
     <table>
@@ -90,10 +90,13 @@
       <tr><td>010</td><td>zero holes in the ground</td></tr>
       <tr><td>011</td><td>zero holes in the ground</td></tr>
       <tr><td>100</td><td>crocodiles in the water</td></tr>
-      <tr><td>101</td><td>treasure</td></tr>
+      <tr><td>101</td><td>shifting tar pit with treasure</td></tr>
       <tr><td>110</td><td>shifting tar pit</td></tr>
       <tr><td>111</td><td>shifting quicksand</td></tr>
     </table>
+
+    <p>Shifting tar pits without a treasure (bits are 110) will always have a vine, whereas if there is a treasure (bits are 101) the shifting tar pit will not have a vine.</p>
+    <aside>Thanks to Mike Schiraldi for pointing this out.</aside>
 
     <h4>Bits 6 to 7: Trees</h4>
 
