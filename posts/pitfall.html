@@ -131,18 +131,18 @@
 
 <pre><span class="comment">; room' = room << 1 | (bit3 + bit4 + bit5 + bit7)</span>
 <span class="function">LOOP_ROOM</span>:
-    <span class="number">LDA</span> ROOM
-    <span class="number">ASL</span>
-    <span class="number">EOR</span> ROOM
-    <span class="number">ASL</span>
-    <span class="number">EOR</span> ROOM
-    <span class="number">ASL</span>
-    <span class="number">ASL</span>
-    <span class="number">EOR</span> ROOM
-    <span class="number">ASL</span>
-    <span class="number">ROL</span> ROOM
-    <span class="number">DEX</span>
-    <span class="number">BPL</span> <span class="function">LOOP_ROOM</span></pre>
+  <span class="number">LDA</span> ROOM
+  <span class="number">ASL</span>
+  <span class="number">EOR</span> ROOM
+  <span class="number">ASL</span>
+  <span class="number">EOR</span> ROOM
+  <span class="number">ASL</span>
+  <span class="number">ASL</span>
+  <span class="number">EOR</span> ROOM
+  <span class="number">ASL</span>
+  <span class="number">ROL</span> ROOM
+  <span class="number">DEX</span>
+  <span class="number">BPL</span> <span class="function">LOOP_ROOM</span></pre>
     <aside><a href="https://github.com/johnidm/asm-atari-2600/blob/master/pitfall.asm" target="_blank">View the entire code here</a>. This excerpt starts at line 3012</aside>
 
     <p><code>ROOM</code> is the byte that describes the current room. Before getting into how this works, it's important to note the last two lines, and why this is a loop. Crane wanted it so that if Pitfall Harry (the hero in <cite>Pitfall!</cite>) is in the underground, then going over a room actually transports him over three rooms. <code>DEX</code> decrements the <code>X</code> register and <code>BPL</code> branches if the preceding calculation wasn't negative, so Crane implemented this behavior by setting the <code>X</code> register to <code>2</code> before calling this subroutine if Harry was underground. Otherwise the <code>X</code> register is set to <code>0</code> and there's no looping.</p>
@@ -198,19 +198,19 @@
 
 <pre><span class="comment">; room' = room >> 1 | ((bit4 + bit5 + bit6 + bit0) * 128)</span>
 <span class="function">LOOP_ROOM</span>:
-    <span class="number">LDA</span> ROOM
-    <span class="number">ASL</span>
-    <span class="number">EOR</span> ROOM
-    <span class="number">ASL</span>
-    <span class="number">EOR</span> ROOM
-    <span class="number">ASL</span>
-    <span class="number">ASL</span>
-    <span class="number">ROL</span>
-    <span class="number">EOR</span> ROOM
-    <span class="number">LSR</span>
-    <span class="number">ROR</span> ROOM
-    <span class="number">DEX</span>
-    <span class="number">BPL</span> <span class="function">LOOP_ROOM</span>
+  <span class="number">LDA</span> ROOM
+  <span class="number">ASL</span>
+  <span class="number">EOR</span> ROOM
+  <span class="number">ASL</span>
+  <span class="number">EOR</span> ROOM
+  <span class="number">ASL</span>
+  <span class="number">ASL</span>
+  <span class="number">ROL</span>
+  <span class="number">EOR</span> ROOM
+  <span class="number">LSR</span>
+  <span class="number">ROR</span> ROOM
+  <span class="number">DEX</span>
+  <span class="number">BPL</span> <span class="function">LOOP_ROOM</span>
 </pre>
     <aside>You might notice this LFSR is also labeled <code>LOOP_ROOM</code>. This is from a disassembly, we don't know what Crane originally called this piece of code, but it's fine that they share the same label. This is because the branch commands (<code>BPL</code> for example) can only offset the program counter by 255 at most, and these two labels are seperated by about 1000 instructions. To jump greater distances you need either the <code>JMP</code> or <code>JSR</code> command, which are unconditional jumps.</aside>
 
