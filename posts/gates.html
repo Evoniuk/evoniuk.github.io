@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Jack Evoniuk">
+
+  <title>Some Quick Points on Logic Gates</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./styles/normal.css">
+</head>
+
+<body>
+    <div id="home"><a href="../index.html">Just Some Thoughts</a></div>
+
+    <h1>Some Quick Points on Logic Gates</h1>
+
+    <p>This post assumes you know what logic gates are, but not much more. I wrote it to serve as a quick guide on some very basic facts about logic gates that aren't often justified, and when they are, they're justified in an overcomplicated way. The two facts we'll go over are:</p>
+
+    <ol>
+        <li>Why there are only six binary gates.</li>
+        <li>Why only two of them are functionally complete.</li>
+    </ol>
+
+    <p>The first of these is often mentioned but rarely justified (it's often said there are seven: the seventh they're talking about is NOT, which is a unary gate I'm ignoring). Not knowing why there are only six can lead people to wonder about the possibility of other, undiscussed (hidden?) gates. As such, I find justifiying the count of six as essential, as you know you're not missing out on anything.</p>
+
+    <p>For the second, it's often shown how NAND and NOR are functionally complete, but rarely shown that the others cannot be. This is actually surprisingly trivial to do, as you'll see.</p>
+
+    <h2>Why there are only six binary gates</h2>
+
+    <p>There are four possible combinations of two binary inputs. For each of these combinations a binary gate produces a binary output. There are thus 2<sup>4</sup> ways to make a gate, and thus 2<sup>4</sup> possible binary gates.</p>
+
+    <p>You might notice that 16 is more that 6. This is true. I lied to you. But I did it for your own good! 10 of these gates are not very useful.</p>
+
+    <p>Two of these gates are actually not useful in any way at all: the gate that is always false and the gate that is always true. Neither of these gates have an output that is a function of its inputs, so are obviously useless.</p>
+
+    <p>The other 8 gates I claim as not very useful because they're not symmetric: if you switch A and B the output changes. This might be a desirable property in some cases, in particular for the relationship A implies B (or vice versa), but generally being asymmetric complicates analysis and in a practical setting makes the gates much more error-prone.</p>
+
+    <p>That leaves these six, for which I've produced their truth tables below. I've omitted the case A and ~B, as that will be the same as ~A and B for symmetric gates:</p>
+
+    <table>
+        <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>AND</th>
+            <th>XOR</th>
+            <th>OR</th>
+            <th>NOR</th>
+            <th>XNOR</th>
+            <th>NAND</th>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+    </table>
+
+    <p>The naming of these is straightforward: AND and OR correspond to their English words, XOR is short for "eXclusive OR", and the other three are negations of the first three, so get an N in the name.</p>
+
+    <p>This table counts up in binary as you go left to right. If you imagine a complete table where all 16 possibilities are present (with an extra row for A and ~B), you can see how the table would begin with 0000 and end with 1111, and how half of the gates would have a 01 or 10 for the middle rows, which would make them asymmetric. Those are the 10 less useful gates.</p>
+
+    <h2>Why are only two of these functionally complete?</h2>
+
+    <p>In case you don't know, of the above gates only NOR and NAND are functionally complete.</p>
+
+    <p>As a reminder, a set of gates (which may just be one gate) is functionally complete if and only if they it be used to create any truth table. There are other ways to define functional completeness, but this is the definition we'll use.</p>
+
+    <p>As an example, the set {AND, OR, NOT} is functionally complete. This is very easy to show: for any truth table, you can OR together all combinations of inputs that result in a true output. As an example, consider the truth table for A implies B:</p>
+
+    <table>
+        <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>A implies B</th>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+    </table>
+
+    <p>This is equivalent to (~A AND ~B) OR (~A AND B) OR (A AND B).</p>
+
+    <p>This technique can be extended to create any truth table with just {AND, OR, NOT}. However, this set is actually redundant. You can do away with AND or OR and still be functionally complete. DeMorgan's Laws show us why:</p>
+
+    <ul>
+        <li>A AND B = ~(~A OR ~B)</li>
+        <li>A OR B = ~(~A AND ~B)</li>
+    </ul>
+
+    <p>These laws show that you can use {OR, NOT} to create AND, and likewise use {AND, NOT} to create OR. So the sets {OR, NOT} and {AND, NOT} are functionally complete, because they can do everything {AND, OR, NOT} can.</p>
+
+    <p>Knowing that {AND, NOT} and {OR, NOT} are functionally complete allows us to show that {NAND} and {NOR} are functionally complete, so long as we can show that both {NAND} and {NOR} can each be used to create one of the sets already established as functionally complete. Let's do this.</p>
+
+    <p>First, we'll show that {NOR} can be used to create both NOT and OR:</p>
+
+    <ul>
+        <li>NOT A = A NOR A</li>
+        <li>A OR B = ~(A NOR B) = (A NOR B) NOR (A NOR B)</li>
+    </ul>
+
+    <p>Likewise, we can show that {NAND} can be used to create both NOT and AND:</p>
+
+    <ul>
+        <li>NOT A = A NAND A</li>
+        <li>A AND B = ~(A NAND B) = (A NAND B) NAND (A NAND B)</li>
+    </ul>
+
+    <p>This shows that both {NAND} and {NOR} are functionally complete.</p>
+
+    <p>But we've yet to show that none of the other (useful) binary gates are complete. To do that, we'll show that these gates have a property that prevent them from creating certain truth tables.</p>
+
+    <p>If you look back at the truth tables for the six gates you might be able to spot what's different about NOR and NAND. If both inputs are 0 or 1, the output of NOR and NAND is the opposite. This is actually a necessary feature of being functionally complete.</p>
+
+    <p>To see why, consider the case of both inputs being 0. Because the ouput or AND, XOR, and OR will be 0, any combination of them will also be 0. This means they cannot produce any truth table that has a true output for all-false inputs. Likewise, if both inputs are 1, any combination of AND, OR, and XNOR will be 1, and so cannot produce any truth table that has a false output for all-true inputs. This means that AND, XOR, OR, and XNOR cannot be functionally complete.</p>
+
+    <p>With all that we've shown that there only six (useful) binary gates, and we have a complete understanding of why each one is or is not functionally complete.</p>
+</body>

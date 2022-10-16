@@ -11,3 +11,8 @@ p, li {
 blockquote, aside {font-size: smaller}
 
 aside {text-align: center}
+
+table {
+  width: 100%;
+  text-align: left;
+}
